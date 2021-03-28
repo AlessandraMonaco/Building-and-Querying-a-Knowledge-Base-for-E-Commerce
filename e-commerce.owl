@@ -1,17 +1,25 @@
 @prefix : <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#> .
-@prefix gr: <http://purl.org/goodrelations/v1#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
 @base <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce> .
 
 <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce> rdf:type owl:Ontology ;
-                                                                <http://ainf.aau.at/ontodebug#testCase> [ ] ;
-rdfs:comment """This is a very simple Knowledge Base for an e-commerce website that sells tehcnological products (electronic, informatic, gaming consoles).
+                                                                <http://ainf.aau.at/ontodebug#testCase> [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+                                                                                                        ] ,
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+                                                                                                        ] ,
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+                                                                                                        ] ,
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+                                                                                                        ] ;
+                                                                rdfs:comment """This is a very simple Knowledge Base for an e-commerce website that sells tehcnological products (electronic, informatic, gaming consoles).
 The Knowledge Base contains information about both products and customer behaviour on the website (i.e clicking on a product to see details, buying a product, reviewing a product). This should be helpful for (i) customer experience improvement (for product retrieval), (ii) customer segmentation and (iii) analysis.
 
 Notice that an ontology generally describes some ASPECTS of a domain of interest, therefore we should not expect this to be a complete and exhaustive representation of e-commerce knowledge, but we aim to represent just the information that we consider useful for our business purposes (in this case product retrieval and customer analysis and segmentation).""" .
@@ -46,6 +54,10 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 <http://ontologydesignpatterns.org/opla-sd#entityPositionY> rdf:type owl:AnnotationProperty .
 
 
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/2003/06/sw-vocab-status/ns#term_status
 <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> rdf:type owl:AnnotationProperty .
 
@@ -55,35 +67,26 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#hasBrand
-gr:hasBrand rdf:type owl:ObjectProperty ;
-            rdfs:domain :Product ;
-            rdfs:range gr:Brand .
+<http://purl.org/goodrelations/v1#hasBrand> rdf:type owl:ObjectProperty ;
+                                            rdfs:domain :Product ;
+                                            rdfs:range <http://purl.org/goodrelations/v1#Brand> .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#deliveryLocation
 :deliveryLocation rdf:type owl:ObjectProperty ;
                   rdfs:domain :ProductBuying ;
-                  rdfs:range vcard:Location .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasColor
-:hasColor rdf:type owl:ObjectProperty ;
-          rdfs:domain :Product .
+                  rdfs:range <http://www.w3.org/2006/vcard/ns#Location> .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasGraphicBrand
 :hasGraphicBrand rdf:type owl:ObjectProperty ;
                  rdfs:domain :Product ;
-                 rdfs:range gr:Brand .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasOperatingSystem
-:hasOperatingSystem rdf:type owl:ObjectProperty .
+                 rdfs:range <http://purl.org/goodrelations/v1#Brand> .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#locatedInCity
 :locatedInCity rdf:type owl:ObjectProperty ;
-               rdfs:domain vcard:Location ;
+               rdfs:domain <http://www.w3.org/2006/vcard/ns#Location> ;
                rdfs:range :City ;
                rdfs:comment "This predicate links a Location (a particular address) with the correspondent city of provence." .
 
@@ -105,23 +108,23 @@ gr:hasBrand rdf:type owl:ObjectProperty ;
                  owl:inverseOf :performsAction ;
                  rdf:type owl:FunctionalProperty ;
                  rdfs:domain :UserAction ;
-                 rdfs:range foaf:OnlineEcommerceAccount .
+                 rdfs:range <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#performsAction
 :performsAction rdf:type owl:ObjectProperty ;
-                rdfs:domain foaf:OnlineEcommerceAccount ;
+                rdfs:domain <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
                 rdfs:range :UserAction .
 
 
 ###  http://xmlns.com/foaf/0.1/account
-foaf:account rdf:type owl:ObjectProperty ;
-             rdfs:domain foaf:Agent ;
-             rdfs:range foaf:OnlineAccount ;
-             rdfs:comment "Indicates an account held by this agent." ;
-             rdfs:isDefinedBy foaf: ;
-             rdfs:label "account" ;
-             <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+<http://xmlns.com/foaf/0.1/account> rdf:type owl:ObjectProperty ;
+                                    rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
+                                    rdfs:range <http://xmlns.com/foaf/0.1/OnlineAccount> ;
+                                    rdfs:comment "Indicates an account held by this agent." ;
+                                    rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                    rdfs:label "account" ;
+                                    <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 #################################################################
@@ -129,9 +132,10 @@ foaf:account rdf:type owl:ObjectProperty ;
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#name
-gr:name rdf:type owl:DatatypeProperty ,
-                 owl:FunctionalProperty ;
-        rdfs:range xsd:string .
+<http://purl.org/goodrelations/v1#name> rdf:type owl:DatatypeProperty ,
+                                                 owl:FunctionalProperty ;
+                                        rdfs:domain <http://purl.org/goodrelations/v1#ProductOrService> ;
+                                        rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#actionDatetime
@@ -140,24 +144,9 @@ gr:name rdf:type owl:DatatypeProperty ,
                 rdfs:range xsd:dateTime .
 
 
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#addressedTo
-:addressedTo rdf:type owl:DatatypeProperty ;
-             rdfs:domain :Product ;
-             rdfs:range xsd:string ,
-                        [ rdf:type rdfs:Datatype ;
-                          owl:oneOf [ rdf:type rdf:List ;
-                                      rdf:first "Man" ;
-                                      rdf:rest [ rdf:type rdf:List ;
-                                                 rdf:first "Woman" ;
-                                                 rdf:rest rdf:nil
-                                               ]
-                                    ]
-                        ] ;
-             rdfs:comment "Indicates wether the product is addressed just to men or just to women." .
-
-
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasColor
 :hasColor rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Product ;
           rdfs:range xsd:string ,
                      [ rdf:type rdfs:Datatype ;
                        owl:oneOf [ rdf:type rdf:List ;
@@ -208,6 +197,17 @@ gr:name rdf:type owl:DatatypeProperty ,
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasConnectivityTechnology
 :hasConnectivityTechnology rdf:type owl:DatatypeProperty ;
+                           rdfs:domain [ rdf:type owl:Class ;
+                                         owl:unionOf ( :Desktop
+                                                       :Headphones
+                                                       :Keyboard
+                                                       :Laptop
+                                                       :Mouse
+                                                       :Printer
+                                                       :Tablet
+                                                       :VideogameAccessory
+                                                     )
+                                       ] ;
                            rdfs:range xsd:string ,
                                       [ rdf:type rdfs:Datatype ;
                                         owl:oneOf [ rdf:type rdf:List ;
@@ -262,17 +262,32 @@ gr:name rdf:type owl:DatatypeProperty ,
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasCpuModel
 :hasCpuModel rdf:type owl:DatatypeProperty ,
                       owl:FunctionalProperty ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :Desktop
+                                         :Laptop
+                                       )
+                         ] ;
              rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasHardwareInterface
-:hasHardwareInterface rdf:type owl:DatatypeProperty .
+:hasHardwareInterface rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :Product_DataStorage ;
+                      rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasMemoryCapacity
 :hasMemoryCapacity rdf:type owl:DatatypeProperty ,
                             owl:FunctionalProperty ;
-                   rdfs:domain :Product ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( :Cellphone
+                                               :Desktop
+                                               :Laptop
+                                               :Printer
+                                               :Product_DataStorage
+                                               :Tablet
+                                             )
+                               ] ;
                    rdfs:range xsd:float ;
                    rdfs:comment "It's expressed in GB." .
 
@@ -287,7 +302,13 @@ gr:name rdf:type owl:DatatypeProperty ,
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasScreenDimension
 :hasScreenDimension rdf:type owl:DatatypeProperty ,
                              owl:FunctionalProperty ;
-                    rdfs:domain :Product ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( :Cellphone
+                                                :Desktop
+                                                :Laptop
+                                                :Tablet
+                                              )
+                                ] ;
                     rdfs:range xsd:float ;
                     rdfs:comment "Measured in thumbs." .
 
@@ -303,12 +324,24 @@ gr:name rdf:type owl:DatatypeProperty ,
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#numberOfProcessors
 :numberOfProcessors rdf:type owl:DatatypeProperty ,
                              owl:FunctionalProperty ;
+                    rdfs:domain [ rdf:type owl:Class ;
+                                  owl:unionOf ( :Cellphone
+                                                :Desktop
+                                                :Laptop
+                                                :Tablet
+                                              )
+                                ] ;
                     rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#numberOfUsbPorts
 :numberOfUsbPorts rdf:type owl:DatatypeProperty ,
                            owl:FunctionalProperty ;
+                  rdfs:domain [ rdf:type owl:Class ;
+                                owl:unionOf ( :Desktop
+                                              :Laptop
+                                            )
+                              ] ;
                   rdfs:range xsd:integer .
 
 
@@ -390,84 +423,84 @@ gr:name rdf:type owl:DatatypeProperty ,
 
 
 ###  http://www.w3.org/2006/vcard/ns#country-name
-vcard:country-name rdf:type owl:DatatypeProperty ;
-                   rdfs:domain :Country ;
-                   rdfs:range xsd:string ;
-                   rdfs:comment "The full country name (ex: \"United Kingdom\" for UK)"@en ;
-                   rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-                   rdfs:label "country name"@en .
+<http://www.w3.org/2006/vcard/ns#country-name> rdf:type owl:DatatypeProperty ;
+                                               rdfs:domain :Country ;
+                                               rdfs:range xsd:string ;
+                                               rdfs:comment "The full country name (ex: \"United Kingdom\" for UK)"@en ;
+                                               rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                               rdfs:label "country name"@en .
 
 
 ###  http://www.w3.org/2006/vcard/ns#locality
-vcard:locality rdf:type owl:DatatypeProperty ;
-               rdfs:domain vcard:Location ;
-               rdfs:range xsd:string ;
-               rdfs:comment "The locality (e.g. città, comune,...) associated with the address of the object"@en ;
-               rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-               rdfs:label "locality"@en .
+<http://www.w3.org/2006/vcard/ns#locality> rdf:type owl:DatatypeProperty ;
+                                           rdfs:domain <http://www.w3.org/2006/vcard/ns#Location> ;
+                                           rdfs:range xsd:string ;
+                                           rdfs:comment "The locality (e.g. città, comune,...) associated with the address of the object"@en ;
+                                           rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                           rdfs:label "locality"@en .
 
 
 ###  http://www.w3.org/2006/vcard/ns#postal-code
-vcard:postal-code rdf:type owl:DatatypeProperty ;
-                  rdfs:domain vcard:Location ;
-                  rdfs:range xsd:string ;
-                  rdfs:comment "The postal code associated with the address of the object"@en ;
-                  rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-                  rdfs:label "postal code"@en .
+<http://www.w3.org/2006/vcard/ns#postal-code> rdf:type owl:DatatypeProperty ;
+                                              rdfs:domain <http://www.w3.org/2006/vcard/ns#Location> ;
+                                              rdfs:range xsd:string ;
+                                              rdfs:comment "The postal code associated with the address of the object"@en ;
+                                              rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                              rdfs:label "postal code"@en .
 
 
 ###  http://www.w3.org/2006/vcard/ns#region
-vcard:region rdf:type owl:DatatypeProperty ;
-             rdfs:domain :City ;
-             rdfs:range xsd:string ;
-             rdfs:comment "The region (e.g. state or province) associated with the address of the object"@en ;
-             rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-             rdfs:label "region"@en .
+<http://www.w3.org/2006/vcard/ns#region> rdf:type owl:DatatypeProperty ;
+                                         rdfs:domain :City ;
+                                         rdfs:range xsd:string ;
+                                         rdfs:comment "The region (e.g. state or province) associated with the address of the object"@en ;
+                                         rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                         rdfs:label "region"@en .
 
 
 ###  http://www.w3.org/2006/vcard/ns#street-address
-vcard:street-address rdf:type owl:DatatypeProperty ;
-                     rdfs:domain vcard:Location ;
-                     rdfs:range xsd:string ;
-                     rdfs:comment "The street address associated with the address of the object"@en ;
-                     rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-                     rdfs:label "street address"@en .
+<http://www.w3.org/2006/vcard/ns#street-address> rdf:type owl:DatatypeProperty ;
+                                                 rdfs:domain <http://www.w3.org/2006/vcard/ns#Location> ;
+                                                 rdfs:range xsd:string ;
+                                                 rdfs:comment "The street address associated with the address of the object"@en ;
+                                                 rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                                 rdfs:label "street address"@en .
 
 
 ###  http://xmlns.com/foaf/0.1/accountName
-foaf:accountName rdf:type owl:DatatypeProperty ,
-                          owl:FunctionalProperty ;
-                 rdfs:domain foaf:OnlineAccount ;
-                 rdfs:range xsd:string ;
-                 rdfs:comment "Indicates the name (identifier) associated with this online account. It's a string representing the username of the account." ;
-                 rdfs:isDefinedBy foaf: ;
-                 rdfs:label "account name" ;
-                 <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+<http://xmlns.com/foaf/0.1/accountName> rdf:type owl:DatatypeProperty ,
+                                                 owl:FunctionalProperty ;
+                                        rdfs:domain <http://xmlns.com/foaf/0.1/OnlineAccount> ;
+                                        rdfs:range xsd:string ;
+                                        rdfs:comment "Indicates the name (identifier) associated with this online account. It's a string representing the username of the account." ;
+                                        rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                        rdfs:label "account name" ;
+                                        <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/age
-foaf:age rdf:type owl:DatatypeProperty ,
-                  owl:FunctionalProperty ;
-         rdfs:domain foaf:Agent ;
-         rdfs:range xsd:integer ;
-         rdfs:comment "The age in years of some agent." ;
-         rdfs:isDefinedBy foaf: ;
-         rdfs:label "age" ;
-         <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+<http://xmlns.com/foaf/0.1/age> rdf:type owl:DatatypeProperty ,
+                                         owl:FunctionalProperty ;
+                                rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
+                                rdfs:range xsd:integer ;
+                                rdfs:comment "The age in years of some agent." ;
+                                rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                rdfs:label "age" ;
+                                <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 
 ###  http://xmlns.com/foaf/0.1/birthday
-foaf:birthday rdf:type owl:DatatypeProperty ,
-                       owl:FunctionalProperty ;
-              rdfs:domain foaf:Agent ;
-              rdfs:range xsd:dateTime ;
-              rdfs:comment "The birthday of this Agent, represented in mm-dd string form, eg. '12-31'." ;
-              rdfs:isDefinedBy foaf: ;
-              rdfs:label "birthday" ;
-              <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+<http://xmlns.com/foaf/0.1/birthday> rdf:type owl:DatatypeProperty ,
+                                              owl:FunctionalProperty ;
+                                     rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
+                                     rdfs:range xsd:dateTime ;
+                                     rdfs:comment "The birthday of this Agent, represented in mm-dd string form, eg. '12-31'." ;
+                                     rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                     rdfs:label "birthday" ;
+                                     <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 [ rdf:type owl:Axiom ;
-   owl:annotatedSource foaf:birthday ;
+   owl:annotatedSource <http://xmlns.com/foaf/0.1/birthday> ;
    owl:annotatedProperty rdfs:range ;
    owl:annotatedTarget xsd:dateTime ;
    rdfs:comment "For example : \"2010-10-10T00:00:00Z\"^^xsd:DateTime"
@@ -475,34 +508,34 @@ foaf:birthday rdf:type owl:DatatypeProperty ,
 
 
 ###  http://xmlns.com/foaf/0.1/gender
-foaf:gender rdf:type owl:DatatypeProperty ,
-                     owl:FunctionalProperty ;
-            rdfs:domain foaf:Agent ;
-            rdfs:range xsd:string ,
-                       [ rdf:type rdfs:Datatype ;
-                         owl:oneOf [ rdf:type rdf:List ;
-                                     rdf:first "female" ;
-                                     rdf:rest [ rdf:type rdf:List ;
-                                                rdf:first "male" ;
-                                                rdf:rest rdf:nil
-                                              ]
-                                   ]
-                       ] ;
-            rdfs:comment "The gender of this Agent (typically but not necessarily 'male' or 'female')." ;
-            rdfs:isDefinedBy foaf: ;
-            rdfs:label "gender" ;
-            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+<http://xmlns.com/foaf/0.1/gender> rdf:type owl:DatatypeProperty ,
+                                            owl:FunctionalProperty ;
+                                   rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
+                                   rdfs:range xsd:string ,
+                                              [ rdf:type rdfs:Datatype ;
+                                                owl:oneOf [ rdf:type rdf:List ;
+                                                            rdf:first "female" ;
+                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                       rdf:first "male" ;
+                                                                       rdf:rest rdf:nil
+                                                                     ]
+                                                          ]
+                                              ] ;
+                                   rdfs:comment "The gender of this Agent (typically but not necessarily 'male' or 'female')." ;
+                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                   rdfs:label "gender" ;
+                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/name
-foaf:name rdf:type owl:DatatypeProperty ,
-                   owl:FunctionalProperty ;
-          rdfs:domain owl:Thing ;
-          rdfs:range xsd:string ;
-          rdfs:comment "A name for some thing." ;
-          rdfs:isDefinedBy foaf: ;
-          rdfs:label "name" ;
-          <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+<http://xmlns.com/foaf/0.1/name> rdf:type owl:DatatypeProperty ,
+                                          owl:FunctionalProperty ;
+                                 rdfs:domain owl:Thing ;
+                                 rdfs:range xsd:string ;
+                                 rdfs:comment "A name for some thing." ;
+                                 rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                 rdfs:label "name" ;
+                                 <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 #################################################################
@@ -510,17 +543,18 @@ foaf:name rdf:type owl:DatatypeProperty ,
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#Brand
-gr:Brand rdf:type owl:Class ;
-         rdfs:comment "This class comes from the Good Relation vocabulary." .
+<http://purl.org/goodrelations/v1#Brand> rdf:type owl:Class ;
+                                         rdfs:comment "This class comes from the Good Relation vocabulary." .
 
 
 ###  http://purl.org/goodrelations/v1#ProductOrService
-gr:ProductOrService rdf:type owl:Class .
+<http://purl.org/goodrelations/v1#ProductOrService> rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cellphone
 :Cellphone rdf:type owl:Class ;
            rdfs:subClassOf :Product_Electronics ;
+           owl:disjointWith :Headphones ;
            <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "106.03478354068211"^^xsd:double ;
                                                                         <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "273.1467687440483"^^xsd:double ;
                                                                         rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
@@ -528,7 +562,11 @@ gr:ProductOrService rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#City
-:City rdf:type owl:Class .
+:City rdf:type owl:Class ;
+      rdfs:subClassOf [ rdf:type owl:Restriction ;
+                        owl:onProperty :locatedInCountry ;
+                        owl:someValuesFrom :Country
+                      ] .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ComputerAccessory
@@ -546,7 +584,9 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Desktop
 :Desktop rdf:type owl:Class ;
-         rdfs:subClassOf :Product_Informatics .
+         rdfs:subClassOf :Product_Informatics ;
+         owl:disjointWith :Laptop ,
+                          :Tablet .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ExternalHardDrive
@@ -570,12 +610,15 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Keyboard
 :Keyboard rdf:type owl:Class ;
-          rdfs:subClassOf :ComputerAccessory .
+          rdfs:subClassOf :ComputerAccessory ;
+          owl:disjointWith :Printer ,
+                           :Product_DataStorage .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Laptop
 :Laptop rdf:type owl:Class ;
         rdfs:subClassOf :Product_Informatics ;
+        owl:disjointWith :Tablet ;
         <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "262.11192253212016"^^xsd:double ;
                                                                      <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "155.07670035546272"^^xsd:double ;
                                                                      rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
@@ -584,7 +627,9 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Mouse
 :Mouse rdf:type owl:Class ;
-       rdfs:subClassOf :ComputerAccessory .
+       rdfs:subClassOf :ComputerAccessory ;
+       owl:disjointWith :Printer ,
+                        :Product_DataStorage .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#NintendoDS
@@ -632,6 +677,7 @@ gr:ProductOrService rdf:type owl:Class .
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Printer
 :Printer rdf:type owl:Class ;
          rdfs:subClassOf :ComputerAccessory ;
+         owl:disjointWith :Product_DataStorage ;
          <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "268.85542940140397"^^xsd:double ;
                                                                       <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "54.671854203838635"^^xsd:double ;
                                                                       rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
@@ -640,10 +686,20 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Product
 :Product rdf:type owl:Class ;
-         rdfs:subClassOf gr:ProductOrService ,
+         owl:equivalentClass [ rdf:type owl:Class ;
+                               owl:unionOf ( :Product_Electronics
+                                             :Product_Gaming
+                                             :Product_Informatics
+                                           )
+                             ] ;
+         rdfs:subClassOf <http://purl.org/goodrelations/v1#ProductOrService> ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty gr:hasBrand ;
-                           owl:someValuesFrom gr:Brand
+                           owl:onProperty <http://purl.org/goodrelations/v1#hasBrand> ;
+                           owl:someValuesFrom <http://purl.org/goodrelations/v1#Brand>
+                         ] ,
+                         [ rdf:type owl:Restriction ;
+                           owl:onProperty <http://purl.org/goodrelations/v1#name> ;
+                           owl:someValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
                            owl:onProperty :hasPrice ;
@@ -659,8 +715,8 @@ gr:ProductOrService rdf:type owl:Class .
    owl:annotatedSource :Product ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty gr:hasBrand ;
-                         owl:someValuesFrom gr:Brand
+                         owl:onProperty <http://purl.org/goodrelations/v1#hasBrand> ;
+                         owl:someValuesFrom <http://purl.org/goodrelations/v1#Brand>
                        ] ;
    rdfs:comment "Every product has a Brand."
  ] .
@@ -678,7 +734,13 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ProductBuying
 :ProductBuying rdf:type owl:Class ;
-               rdfs:subClassOf :UserAction ;
+               rdfs:subClassOf :UserAction ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :deliveryLocation ;
+                                 owl:someValuesFrom <http://www.w3.org/2006/vcard/ns#Location>
+                               ] ;
+               owl:disjointWith :ProductReview ,
+                                :ProductVisualization ;
                <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "177.49891553431763"^^xsd:double ;
                                                                             <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "68.65515990594929"^^xsd:double ;
                                                                             rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
@@ -704,6 +766,7 @@ gr:ProductOrService rdf:type owl:Class .
                                                     ) ;
                                  rdf:type owl:Class
                                ] ;
+               owl:disjointWith :ProductVisualization ;
                <http://ontologydesignpatterns.org/opla-sd#entityPosition> [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "114.03355017981994"^^xsd:double ;
                                                                             <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "178.4645963544366"^^xsd:double ;
                                                                             rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
@@ -765,7 +828,7 @@ gr:ProductOrService rdf:type owl:Class .
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :performedByUser ;
-                              owl:someValuesFrom foaf:OnlineEcommerceAccount
+                              owl:someValuesFrom <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount>
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :actionDatetime ;
@@ -779,12 +842,15 @@ gr:ProductOrService rdf:type owl:Class .
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Videogame
 :Videogame rdf:type owl:Class ;
-           rdfs:subClassOf :Product_Gaming .
+           rdfs:subClassOf :Product_Gaming ;
+           owl:disjointWith :VideogameAccessory ,
+                            :VideogameConsole .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#VideogameAccessory
 :VideogameAccessory rdf:type owl:Class ;
-                    rdfs:subClassOf :Product_Gaming .
+                    rdfs:subClassOf :Product_Gaming ;
+                    owl:disjointWith :VideogameConsole .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#VideogameConsole
@@ -840,44 +906,60 @@ gr:ProductOrService rdf:type owl:Class .
 
 
 ###  http://www.w3.org/2006/vcard/ns#Location
-vcard:Location rdf:type owl:Class ;
-               rdfs:comment "An object representing a named geographical place"@en ;
-               rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
-               rdfs:label "Location"@en .
+<http://www.w3.org/2006/vcard/ns#Location> rdf:type owl:Class ;
+                                           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/2006/vcard/ns#locality> ;
+                                                             owl:someValuesFrom xsd:string
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/2006/vcard/ns#postal-code> ;
+                                                             owl:someValuesFrom xsd:string
+                                                           ] ,
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty <http://www.w3.org/2006/vcard/ns#street-address> ;
+                                                             owl:someValuesFrom xsd:string
+                                                           ] ;
+                                           rdfs:comment "An object representing a named geographical place"@en ;
+                                           rdfs:isDefinedBy <http://www.w3.org/2006/vcard/ns> ;
+                                           rdfs:label "Location"@en .
 
 
 ###  http://xmlns.com/foaf/0.1/Agent
-foaf:Agent rdf:type owl:Class ;
-           rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
-           rdfs:label "Agent" ;
-           <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
+<http://xmlns.com/foaf/0.1/Agent> rdf:type owl:Class ;
+                                  rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+                                  rdfs:label "Agent" ;
+                                  <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
 
 
 ###  http://xmlns.com/foaf/0.1/OnlineAccount
-foaf:OnlineAccount rdf:type owl:Class ;
-                   rdfs:subClassOf owl:Thing ;
-                   rdfs:comment "An online account." ;
-                   rdfs:isDefinedBy foaf: ;
-                   rdfs:label "Online Account" ;
-                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+<http://xmlns.com/foaf/0.1/OnlineAccount> rdf:type owl:Class ;
+                                          rdfs:subClassOf owl:Thing ;
+                                          rdfs:comment "An online account." ;
+                                          rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                          rdfs:label "Online Account" ;
+                                          <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/OnlineEcommerceAccount
-foaf:OnlineEcommerceAccount rdf:type owl:Class ;
-                            rdfs:subClassOf foaf:OnlineAccount ;
-                            rdfs:comment "An online e-commerce account." ;
-                            rdfs:isDefinedBy foaf: ;
-                            rdfs:label "Online E-commerce Account" ;
-                            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+<http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://xmlns.com/foaf/0.1/OnlineAccount> ,
+                                                                   [ rdf:type owl:Restriction ;
+                                                                     owl:onProperty <http://xmlns.com/foaf/0.1/accountName> ;
+                                                                     owl:someValuesFrom xsd:string
+                                                                   ] ;
+                                                   rdfs:comment "An online e-commerce account." ;
+                                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                                   rdfs:label "Online E-commerce Account" ;
+                                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 
 ###  http://xmlns.com/foaf/0.1/Person
-foaf:Person rdf:type owl:Class ;
-            rdfs:subClassOf foaf:Agent ;
-            rdfs:comment "A person." ;
-            rdfs:isDefinedBy foaf: ;
-            rdfs:label "Person" ;
-            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+                                   rdfs:comment "A person." ;
+                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+                                   rdfs:label "Person" ;
+                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
 
 
 #################################################################
@@ -886,41 +968,37 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ASUS
 :ASUS rdf:type owl:NamedIndividual ,
-               gr:Brand ;
-      gr:name "Asus"^^xsd:string .
+               <http://purl.org/goodrelations/v1#Brand> ;
+      <http://purl.org/goodrelations/v1#name> "Asus"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Activision_Blizzard
 :Activision_Blizzard rdf:type owl:NamedIndividual ,
-                              gr:Brand ;
-                     gr:name "Activision Blizzard"^^xsd:string .
+                              <http://purl.org/goodrelations/v1#Brand> ;
+                     <http://purl.org/goodrelations/v1#name> "Activision Blizzard"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Alessio_Neri
 :Alessio_Neri rdf:type owl:NamedIndividual ,
-                       foaf:Person ;
-              foaf:account :alessioNeri87 ;
-              foaf:birthday "1987-10-06T00:00:00Z"^^xsd:dateTime ;
-              foaf:gender "male"^^xsd:string ;
-              foaf:name "Alessio Neri"^^xsd:string .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Android
-:Android rdf:type owl:NamedIndividual .
+                       <http://xmlns.com/foaf/0.1/Person> ;
+              <http://xmlns.com/foaf/0.1/account> :alessioNeri87 ;
+              <http://xmlns.com/foaf/0.1/birthday> "1987-10-06T00:00:00Z"^^xsd:dateTime ;
+              <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
+              <http://xmlns.com/foaf/0.1/name> "Alessio Neri"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Apple
 :Apple rdf:type owl:NamedIndividual ,
-                gr:Brand ;
-       gr:name "Apple"^^xsd:string .
+                <http://purl.org/goodrelations/v1#Brand> ;
+       <http://purl.org/goodrelations/v1#name> "Apple"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00D2PX8C2
 :B00D2PX8C2 rdf:type owl:NamedIndividual ,
                      :Keyboard ,
                      :Mouse ;
-            gr:hasBrand :Logitech ;
-            gr:name "Logitech MK270 Kit Tastiera e Mouse Wireless per Windows, Wireless 2.4 GHz, Mouse ‎Wireless Compatto, 8 Tasti Multimediali e Scelta Rapida, Durata Batteria 2 anni, PC/Laptop, ‎Layout Italiano QWERTY"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
+            <http://purl.org/goodrelations/v1#name> "Logitech MK270 Kit Tastiera e Mouse Wireless per Windows, Wireless 2.4 GHz, Mouse ‎Wireless Compatto, 8 Tasti Multimediali e Scelta Rapida, Durata Batteria 2 anni, PC/Laptop, ‎Layout Italiano QWERTY"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -931,8 +1009,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00NBR7962
 :B00NBR7962 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            gr:hasBrand :Sony ;
-            gr:name "Sony MDR-ZX110 - Cuffie on-ear, Bianco"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
+            <http://purl.org/goodrelations/v1#name> "Sony MDR-ZX110 - Cuffie on-ear, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Wired"^^xsd:string ;
             :hasPrice "11.99"^^xsd:double .
@@ -941,8 +1019,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00VEA9LD2
 :B00VEA9LD2 rdf:type owl:NamedIndividual ,
                      :Printer ;
-            gr:hasBrand :SAMSUNG ;
-            gr:name "Samsung SL-M2026 Xpress Stampante a Laser Monocromatica"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
+            <http://purl.org/goodrelations/v1#name> "Samsung SL-M2026 Xpress Stampante a Laser Monocromatica"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasMemoryCapacity "0.08"^^xsd:float ;
@@ -955,8 +1033,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B016MUCHTS
 :B016MUCHTS rdf:type owl:NamedIndividual ,
                      :Mouse ;
-            gr:hasBrand :Apple ;
-            gr:name "Apple Magic Mouse 2"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Apple Magic Mouse 2"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasPrice "75.77"^^xsd:double ;
@@ -966,8 +1044,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B016MUCJ5A
 :B016MUCJ5A rdf:type owl:NamedIndividual ,
                      :Keyboard ;
-            gr:hasBrand :Apple ;
-            gr:name "Apple Magic Keyboard - Italiano"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Apple Magic Keyboard - Italiano"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasPrice "89.99"^^xsd:double .
@@ -975,9 +1053,10 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B01KT8D5SG
 :B01KT8D5SG rdf:type owl:NamedIndividual ,
-                     :Keyboard ;
-            gr:hasBrand :Logitech ;
-            gr:name "Logitech G213 Prodigy Tastiera Gaming, RGB Lightsync Backlit Keys, Resistente agli schizzi, Tasti personalizzabili, Tasti multimedia personalizzabili, Layout QWERTY US, Nero"^^xsd:string ;
+                     :Keyboard ,
+                     :VideogameAccessory ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
+            <http://purl.org/goodrelations/v1#name> "Logitech G213 Prodigy Tastiera Gaming, RGB Lightsync Backlit Keys, Resistente agli schizzi, Tasti personalizzabili, Tasti multimedia personalizzabili, Layout QWERTY US, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -989,8 +1068,8 @@ foaf:Person rdf:type owl:Class ;
 :B01M2YUP0S rdf:type owl:NamedIndividual ,
                      :VideogameConsole ,
                      :XboxOne ;
-            gr:hasBrand :Microsoft ;
-            gr:name "Xbox One - Xbox One S 1 TB, Bianco"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
+            <http://purl.org/goodrelations/v1#name> "Xbox One - Xbox One S 1 TB, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasPrice "380.0"^^xsd:double .
 
@@ -998,8 +1077,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B01MU8TZRV
 :B01MU8TZRV rdf:type owl:NamedIndividual ,
                      :UsbDrive ;
-            gr:hasBrand :SanDisk ;
-            gr:name "SanDisk 128GB Extreme PRO USB 3.1 Solid State Flash Drive - SDCZ880-128G-G46"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SanDisk ;
+            <http://purl.org/goodrelations/v1#name> "SanDisk 128GB Extreme PRO USB 3.1 Solid State Flash Drive - SDCZ880-128G-G46"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
@@ -1010,8 +1089,8 @@ foaf:Person rdf:type owl:Class ;
 :B0749V8T1B rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            gr:hasBrand :Electronic_Arts ;
-            gr:name "The Sims 4 - PlayStation 4 - Italiano"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
+            <http://purl.org/goodrelations/v1#name> "The Sims 4 - PlayStation 4 - Italiano"^^xsd:string ;
             :hasPrice "19.99"^^xsd:double .
 
 
@@ -1019,17 +1098,16 @@ foaf:Person rdf:type owl:Class ;
 :B0749WY325 rdf:type owl:NamedIndividual ,
                      :Videogame ,
                      :XboxOne ;
-            gr:hasBrand :Electronic_Arts ;
-            gr:name "The Sims 4 - Xbox One"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
+            <http://purl.org/goodrelations/v1#name> "The Sims 4 - Xbox One"^^xsd:string ;
             :hasPrice "19.99"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B075NLML9V
 :B075NLML9V rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            gr:hasBrand :Apple ;
-            :hasOperatingSystem :OS_X ;
-            gr:name "Apple MacBook Air 13\" (A1466) / Intel Core i5 / RAM 8GB / 250GB SSD / Tastiera Qwerty UK (Ricondizionato)"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Apple MacBook Air 13\" (A1466) / Intel Core i5 / RAM 8GB / 250GB SSD / Tastiera Qwerty UK (Ricondizionato)"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
@@ -1042,8 +1120,8 @@ foaf:Person rdf:type owl:Class ;
 :B078Y36QFJ rdf:type owl:NamedIndividual ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            gr:hasBrand :Microsoft ;
-            gr:name "Microsoft PC: Nuovo Xbox Controller + Wireless Adapter per Windows 10 [Bundle]"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
+            <http://purl.org/goodrelations/v1#name> "Microsoft PC: Nuovo Xbox Controller + Wireless Adapter per Windows 10 [Bundle]"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -1053,8 +1131,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0798MYJ26
 :B0798MYJ26 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            gr:hasBrand :Rivbox ;
-            gr:name "Bluetooth Headphones, Riwbox XBT-80 Folding Stereo Wireless Bluetooth Headphones Over Ear with Microphone and Volume Control, Wireless and Wired Headset for PC/Cell Phones/TV/ipad (White Gold)"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Rivbox ;
+            <http://purl.org/goodrelations/v1#name> "Bluetooth Headphones, Riwbox XBT-80 Folding Stereo Wireless Bluetooth Headphones Over Ear with Microphone and Volume Control, Wireless and Wired Headset for PC/Cell Phones/TV/ipad (White Gold)"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "31.85"^^xsd:double .
@@ -1063,8 +1141,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B079Z3V9WT
 :B079Z3V9WT rdf:type owl:NamedIndividual ,
                      :Printer ;
-            gr:hasBrand :HP ;
-            gr:name "HP LaserJet Pro M28w Stampante Laser Multifunzione Monocromatica, Scanner e Fotocopiatrice, Wi-Fi, Wi-Fi Direct, App HP Smart, Tecnologia Risparmio Energetico, Design Moderno e Compatta, Bianco"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :HP ;
+            <http://purl.org/goodrelations/v1#name> "HP LaserJet Pro M28w Stampante Laser Multifunzione Monocromatica, Scanner e Fotocopiatrice, Wi-Fi, Wi-Fi Direct, App HP Smart, Tecnologia Risparmio Energetico, Design Moderno e Compatta, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wifi"^^xsd:string ;
@@ -1078,8 +1156,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07BRLMY93
 :B07BRLMY93 rdf:type owl:NamedIndividual ,
                      :Mouse ;
-            gr:hasBrand :Apple ;
-            gr:name "Magic Mouse 2 - Space Grey"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Magic Mouse 2 - Space Grey"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasPrice "98.0"^^xsd:double .
@@ -1088,8 +1166,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07FB4H6Z4
 :B07FB4H6Z4 rdf:type owl:NamedIndividual ,
                      :UsbDrive ;
-            gr:hasBrand :SAMSUNG ;
-            gr:name "Samsung Memorie Bar Plus USB Flash Drive, USB 3.1, Type-A, Velocità di Lettura Fino a 400 MB/s, 128 GB, Argento (MUF-128BE3)"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
+            <http://purl.org/goodrelations/v1#name> "Samsung Memorie Bar Plus USB Flash Drive, USB 3.1, Type-A, Velocità di Lettura Fino a 400 MB/s, 128 GB, Argento (MUF-128BE3)"^^xsd:string ;
             :hasColor "Silver"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
@@ -1100,8 +1178,8 @@ foaf:Person rdf:type owl:Class ;
 :B07GS6ZB7T rdf:type owl:NamedIndividual ,
                      :Mouse ,
                      :VideogameAccessory ;
-            gr:hasBrand :Logitech ;
-            gr:name "Logitech G502 HERO Mouse Gaming Prestazioni Elevate, Sensore HERO 25K, 25.600 DPI, RGB, Pesi Regolabili, 11 Pulsanti Programmabili, Memoria Integrata, PC/Mac/Laptop, Nero"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
+            <http://purl.org/goodrelations/v1#name> "Logitech G502 HERO Mouse Gaming Prestazioni Elevate, Sensore HERO 25K, 25.600 DPI, RGB, Pesi Regolabili, 11 Pulsanti Programmabili, Memoria Integrata, PC/Mac/Laptop, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasPrice "57.99"^^xsd:double .
@@ -1111,17 +1189,16 @@ foaf:Person rdf:type owl:Class ;
 :B07HN66ZF2 rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :VideogameConsole ;
-            gr:hasBrand :Sony ;
-            gr:name "PlayStation 4 Pro Gamma, 1TB"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
+            <http://purl.org/goodrelations/v1#name> "PlayStation 4 Pro Gamma, 1TB"^^xsd:string ;
             :hasPrice "488.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07HN8WJN7
 :B07HN8WJN7 rdf:type owl:NamedIndividual ,
                      :Desktop ;
-            gr:hasBrand :ASUS ;
-            :hasOperatingSystem :Windows ;
-            gr:name "ASUS PB40 Mini Desktop Pc - Intel Celeron N4000, 4GB ram DDR4, eMMC 64GB, Lan 10/100/1000, 1xUsb Type C, 1xUSB 3.1, Display Port, HDMI, Porta COM"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
+            <http://purl.org/goodrelations/v1#name> "ASUS PB40 Mini Desktop Pc - Intel Celeron N4000, 4GB ram DDR4, eMMC 64GB, Lan 10/100/1000, 1xUsb Type C, 1xUSB 3.1, Display Port, HDMI, Porta COM"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "289.0"^^xsd:double ;
@@ -1134,16 +1211,16 @@ foaf:Person rdf:type owl:Class ;
 :B07KYTRMGZ rdf:type owl:NamedIndividual ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            gr:hasBrand :Microsoft ;
-            gr:name "kwmobile Alimentatore di ricambio Compatibile con Xbox One - Cavo di alimentazione elettrica CC CA sostituzione per Microsoft Xbox One Console spina EU adattatore"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
+            <http://purl.org/goodrelations/v1#name> "kwmobile Alimentatore di ricambio Compatibile con Xbox One - Cavo di alimentazione elettrica CC CA sostituzione per Microsoft Xbox One Console spina EU adattatore"^^xsd:string ;
             :hasPrice "31.99"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07NDYYNNZ
 :B07NDYYNNZ rdf:type owl:NamedIndividual ,
                      :ExternalHardDrive ;
-            gr:hasBrand :TOSHIBA ;
-            gr:name "TOSHIBA HDTB420EK3AA, Canvio Basics, Disco rigido Esterno Portatile, USB 3.0, Nero, 2 TB"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :TOSHIBA ;
+            <http://purl.org/goodrelations/v1#name> "TOSHIBA HDTB420EK3AA, Canvio Basics, Disco rigido Esterno Portatile, USB 3.0, Nero, 2 TB"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "2000.0"^^xsd:float ;
@@ -1153,8 +1230,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07NY3C9CD
 :B07NY3C9CD rdf:type owl:NamedIndividual ,
                      :ExternalHardDrive ;
-            gr:hasBrand :MAXTOR ;
-            gr:name "Maxtor STSHX-M101TCBM HDD Esterno, USB 3.0, 1TB, Nero"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :MAXTOR ;
+            <http://purl.org/goodrelations/v1#name> "Maxtor STSHX-M101TCBM HDD Esterno, USB 3.0, 1TB, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "1000.0"^^xsd:float ;
@@ -1164,8 +1241,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07PPC15G6
 :B07PPC15G6 rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            gr:hasBrand :SAMSUNG ;
-            gr:name "Samsung Galaxy Tab A 10.1, Tablet, Display 10.1\" WUXGA, 32 GB Espandibili, RAM 2 GB, Batteria 6150 mAh, Wi-Fi, Android 9 Pie, Black [Versione Italiana]"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
+            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy Tab A 10.1, Tablet, Display 10.1\" WUXGA, 32 GB Espandibili, RAM 2 GB, Batteria 6150 mAh, Wi-Fi, Android 9 Pie, Black [Versione Italiana]"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
             :hasPrice "189.0"^^xsd:double ;
@@ -1176,8 +1253,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07PYMK77Y
 :B07PYMK77Y rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            gr:hasBrand :Apple ;
-            gr:name "Apple AirPods con custodia di ricarica tramite cavo"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Apple AirPods con custodia di ricarica tramite cavo"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "NFC"^^xsd:string ;
             :hasPrice "111.74"^^xsd:double .
@@ -1186,8 +1263,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07SB827NV
 :B07SB827NV rdf:type owl:NamedIndividual ,
                      :Printer ;
-            gr:hasBrand :HP ;
-            gr:name "HP LaserJet 135a 4ZB82A, Stampante Laser Bianco e Nero Multifunzione, Stampa, Copia, Scansione, Fotocopiatrice, Formato A4, No Wi-Fi, USB, Fronte e Retro Manuale, fino a 20 ppm, Bianca"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :HP ;
+            <http://purl.org/goodrelations/v1#name> "HP LaserJet 135a 4ZB82A, Stampante Laser Bianco e Nero Multifunzione, Stampa, Copia, Scansione, Fotocopiatrice, Formato A4, No Wi-Fi, USB, Fronte e Retro Manuale, fino a 20 ppm, Bianca"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ,
                       "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
@@ -1202,8 +1279,8 @@ foaf:Person rdf:type owl:Class ;
 :B07VKLNNVL rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :VideogameConsole ;
-            gr:hasBrand :Sony ;
-            gr:name "PS4 Pro Gamma 1TB + Fortnite Vch - Special - PlayStation 4"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
+            <http://purl.org/goodrelations/v1#name> "PS4 Pro Gamma 1TB + Fortnite Vch - Special - PlayStation 4"^^xsd:string ;
             :hasPrice "473.9"^^xsd:double .
 
 
@@ -1211,16 +1288,16 @@ foaf:Person rdf:type owl:Class ;
 :B07WPD3DTC rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            gr:hasBrand :Rockstar_Games ;
-            gr:name "Grand Theft Auto V: Premium Edition (PS4)"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Rockstar_Games ;
+            <http://purl.org/goodrelations/v1#name> "Grand Theft Auto V: Premium Edition (PS4)"^^xsd:string ;
             :hasPrice "25.6"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0828S1TPM
 :B0828S1TPM rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            gr:hasBrand :OneOdio ;
-            gr:name "OneOdio Cuffie Bluetooth Wireless Over Ear Hi-Fi Stereo Audio, Cuffie con Microfono CVC 8.0 80 Hrs Playtime, Cuffie Pieghevoli con Altoparlante al Neodimio da 50 mm per PC, Cellulare, TV, iPad"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :OneOdio ;
+            <http://purl.org/goodrelations/v1#name> "OneOdio Cuffie Bluetooth Wireless Over Ear Hi-Fi Stereo Audio, Cuffie con Microfono CVC 8.0 80 Hrs Playtime, Cuffie Pieghevoli con Altoparlante al Neodimio da 50 mm per PC, Cellulare, TV, iPad"^^xsd:string ;
             :hasColor "Red"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ,
                                        "Wired"^^xsd:string ;
@@ -1230,8 +1307,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0863TXGM3
 :B0863TXGM3 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            gr:hasBrand :Sony ;
-            gr:name "Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead Headphones with Mic for Phone-Call and Alexa Voice Control, Black"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
+            <http://purl.org/goodrelations/v1#name> "Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead Headphones with Mic for Phone-Call and Alexa Voice Control, Black"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "348.0"^^xsd:double .
@@ -1240,9 +1317,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B089ZVZL2R
 :B089ZVZL2R rdf:type owl:NamedIndividual ,
                      :Desktop ;
-            gr:hasBrand :ASUS ;
+            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
             :hasGraphicBrand :NVIDIA ;
-            gr:name "Asus S340MF-59400F005D – Computer desktop da 15 L, Intel Core i5-9400F, 8 GB RAM, 256 GB SSD, GeForce GT710, Endless OS, in inglese, nero"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#name> "Asus S340MF-59400F005D – Computer desktop da 15 L, Intel Core i5-9400F, 8 GB RAM, 256 GB SSD, GeForce GT710, Endless OS, in inglese, nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
@@ -1255,8 +1332,8 @@ foaf:Person rdf:type owl:Class ;
 :B08B9Z6573 rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            gr:hasBrand :Electronic_Arts ;
-            gr:name "FIFA 21 PlayStation 4 [Edizione Italiana]"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
+            <http://purl.org/goodrelations/v1#name> "FIFA 21 PlayStation 4 [Edizione Italiana]"^^xsd:string ;
             :hasPrice "39.99"^^xsd:double .
 
 
@@ -1264,8 +1341,8 @@ foaf:Person rdf:type owl:Class ;
 :B08BPTKHJH rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            gr:hasBrand :Activision_Blizzard ;
-            gr:name "Crash Bandicoot 4 - It's About Time - PlayStation 4"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
+            <http://purl.org/goodrelations/v1#name> "Crash Bandicoot 4 - It's About Time - PlayStation 4"^^xsd:string ;
             :hasPrice "59.99"^^xsd:double .
 
 
@@ -1274,8 +1351,8 @@ foaf:Person rdf:type owl:Class ;
                      :PlayStation3 ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            gr:hasBrand :Logitech ;
-            gr:name "Controller wireless Xbox One e PS3 joystick supporto PC per Windows 7/8/10 gamepad xbox series x, Doppial-vibrazione, design più ergonomico"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
+            <http://purl.org/goodrelations/v1#name> "Controller wireless Xbox One e PS3 joystick supporto PC per Windows 7/8/10 gamepad xbox series x, Doppial-vibrazione, design più ergonomico"^^xsd:string ;
             :hasColor "Light Blue"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "39.5"^^xsd:double .
@@ -1284,9 +1361,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08DRVHP65
 :B08DRVHP65 rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            gr:hasBrand :SAMSUNG ;
-            :hasOperatingSystem :Android ;
-            gr:name "Samsung Galaxy Tab A7 Tablet, Display 10.4\" TFT, 32GB Espandibili fino a 1TB, RAM 3GB, Batteria 7.040 mAh, WiFi, Android 10, Fotocamera posteriore 8 MP, Dark Gray [Versione Italiana]"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
+            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy Tab A7 Tablet, Display 10.4\" TFT, 32GB Espandibili fino a 1TB, RAM 3GB, Batteria 7.040 mAh, WiFi, Android 10, Fotocamera posteriore 8 MP, Dark Gray [Versione Italiana]"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
@@ -1297,8 +1373,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08J6M5YVK
 :B08J6M5YVK rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            gr:hasBrand :Apple ;
-            gr:name "Novità Apple iPad (10,2\", Wi-Fi, 32GB) - Oro"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Novità Apple iPad (10,2\", Wi-Fi, 32GB) - Oro"^^xsd:string ;
             :hasColor "Gold"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
@@ -1310,9 +1386,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08J6S27LG
 :B08J6S27LG rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            gr:hasBrand :Apple ;
-            :hasOperatingSystem :IOS ;
-            gr:name "Novità Apple iPad Air (10,9\", Wi-Fi, 64GB) - Verde"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Novità Apple iPad Air (10,9\", Wi-Fi, 64GB) - Verde"^^xsd:string ;
             :hasColor "Green"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "64.0"^^xsd:float ;
@@ -1324,8 +1399,8 @@ foaf:Person rdf:type owl:Class ;
 :B08JMH4QRT rdf:type owl:NamedIndividual ,
                      :Videogame ,
                      :XboxOne ;
-            gr:hasBrand :Activision_Blizzard ;
-            gr:name "Activision Blizzard Call of Duty: Black Ops Cold War - Xbox One"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
+            <http://purl.org/goodrelations/v1#name> "Activision Blizzard Call of Duty: Black Ops Cold War - Xbox One"^^xsd:string ;
             :hasPrice "69.83"^^xsd:double .
 
 
@@ -1333,17 +1408,16 @@ foaf:Person rdf:type owl:Class ;
 :B08JMHTG7X rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            gr:hasBrand :Activision_Blizzard ;
-            gr:name "Activision Blizzard Call of Duty: Black Ops Cold War - Playstation 4"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
+            <http://purl.org/goodrelations/v1#name> "Activision Blizzard Call of Duty: Black Ops Cold War - Playstation 4"^^xsd:string ;
             :hasPrice "62.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08KS5PC5S
 :B08KS5PC5S rdf:type owl:NamedIndividual ,
                      :Cellphone ;
-            gr:hasBrand :SAMSUNG ;
-            :hasOperatingSystem :Android ;
-            gr:name "Samsung Galaxy M11, Smartphone, Display 6.4\" HD+ TFT, 3 Fotocamere, 32GB Espandibili, RAM 3GB, Batteria 5000 mAh, 4G, Dual Sim, Android 10, 2020 [Versione Italiana], Black"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
+            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy M11, Smartphone, Display 6.4\" HD+ TFT, 3 Fotocamere, 32GB Espandibili, RAM 3GB, Batteria 5000 mAh, 4G, Dual Sim, Android 10, 2020 [Versione Italiana], Black"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "159.9"^^xsd:double ;
@@ -1353,9 +1427,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08L5PKKRJ
 :B08L5PKKRJ rdf:type owl:NamedIndividual ,
                      :Cellphone ;
-            gr:hasBrand :Apple ;
-            :hasOperatingSystem :IOS ;
-            gr:name "Novità Apple iPhone 12 Pro Max (128GB) - Oro"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
+            <http://purl.org/goodrelations/v1#name> "Novità Apple iPhone 12 Pro Max (128GB) - Oro"^^xsd:string ;
             :hasColor "Gold"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
             :hasPrice "1149.0"^^xsd:double .
@@ -1364,9 +1437,8 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08LH9HFG5
 :B08LH9HFG5 rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            gr:hasBrand :ASUS ;
-            :hasOperatingSystem :Windows ;
-            gr:name "Notebook Pc Asus portatile Intel Core i3-1005G1 3.4 Ghz 10 Gen. display 15,6\" Hd 1920x1080,Ram 4Gb Ddr4,Ssd Nvme 256 Gb M2,Hdmi,USB 3.0,Wifi,Bluetooth,Webcam,Windows 10 64 bit,Open Office,Antivirus"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
+            <http://purl.org/goodrelations/v1#name> "Notebook Pc Asus portatile Intel Core i3-1005G1 3.4 Ghz 10 Gen. display 15,6\" Hd 1920x1080,Ram 4Gb Ddr4,Ssd Nvme 256 Gb M2,Hdmi,USB 3.0,Wifi,Bluetooth,Webcam,Windows 10 64 bit,Open Office,Antivirus"^^xsd:string ;
             :hasCpuModel "Intel Core i3"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "649.99"^^xsd:double ;
@@ -1377,10 +1449,9 @@ foaf:Person rdf:type owl:Class ;
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08V5LG7YT
 :B08V5LG7YT rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            gr:hasBrand :ASUS ;
+            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
             :hasGraphicBrand :NVIDIA ;
-            :hasOperatingSystem :Windows ;
-            gr:name "ASUS Laptop A515JF-EJ051T, Notebook con Monitor 15,6 FHD Anti-Glare, Intel Core i5-1035G1, RAM 8GB DDR4, grafica NVIDIA GeForce MX130 con 2GB GDDR5, 256GB SSD PCIE, Windows 10 Home, Argento"^^xsd:string ;
+            <http://purl.org/goodrelations/v1#name> "ASUS Laptop A515JF-EJ051T, Notebook con Monitor 15,6 FHD Anti-Glare, Intel Core i5-1035G1, RAM 8GB DDR4, grafica NVIDIA GeForce MX130 con 2GB GDDR5, 256GB SSD PCIE, Windows 10 Home, Argento"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
             :hasPrice "699.0"^^xsd:double ;
@@ -1390,11 +1461,11 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#BanburyRoad_2_Oxford
 :BanburyRoad_2_Oxford rdf:type owl:NamedIndividual ,
-                               vcard:Location ;
+                               <http://www.w3.org/2006/vcard/ns#Location> ;
                       :locatedInCity :Oxford ;
-                      vcard:locality "Oxford"^^xsd:string ;
-                      vcard:postal-code "OX1 1AA"^^xsd:string ;
-                      vcard:street-address "Banbury Road, 2"^^xsd:string .
+                      <http://www.w3.org/2006/vcard/ns#locality> "Oxford"^^xsd:string ;
+                      <http://www.w3.org/2006/vcard/ns#postal-code> "OX1 1AA"^^xsd:string ;
+                      <http://www.w3.org/2006/vcard/ns#street-address> "Banbury Road, 2"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Bluetooth
@@ -1403,108 +1474,104 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#CalleDelTrejo_18_Madrid
 :CalleDelTrejo_18_Madrid rdf:type owl:NamedIndividual ,
-                                  vcard:Location ;
+                                  <http://www.w3.org/2006/vcard/ns#Location> ;
                          :locatedInCity :Madrid ;
-                         vcard:locality "Madrid"^^xsd:string ;
-                         vcard:postal-code "28003"^^xsd:string ;
-                         vcard:street-address "Calle Del Trejo,18"^^xsd:string .
+                         <http://www.w3.org/2006/vcard/ns#locality> "Madrid"^^xsd:string ;
+                         <http://www.w3.org/2006/vcard/ns#postal-code> "28003"^^xsd:string ;
+                         <http://www.w3.org/2006/vcard/ns#street-address> "Calle Del Trejo,18"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#CountessRoad_10_London
 :CountessRoad_10_London rdf:type owl:NamedIndividual ,
-                                 vcard:Location ;
+                                 <http://www.w3.org/2006/vcard/ns#Location> ;
                         :locatedInCity :London ;
-                        vcard:locality "Aldgate"^^xsd:string ;
-                        vcard:postal-code "E1 7AX"^^xsd:string ;
-                        vcard:street-address "Countess Road, 10"^^xsd:string .
+                        <http://www.w3.org/2006/vcard/ns#locality> "Aldgate"^^xsd:string ;
+                        <http://www.w3.org/2006/vcard/ns#postal-code> "E1 7AX"^^xsd:string ;
+                        <http://www.w3.org/2006/vcard/ns#street-address> "Countess Road, 10"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cristian_De_Niro
 :Cristian_De_Niro rdf:type owl:NamedIndividual ,
-                           foaf:Person ;
-                  foaf:account :Cristian_the_gamer ;
-                  foaf:birthday "1967-11-10T00:00:00Z"^^xsd:dateTime ;
-                  foaf:gender "male"^^xsd:string ;
-                  foaf:name "Cristian De Niro"^^xsd:string .
+                           <http://xmlns.com/foaf/0.1/Person> ;
+                  <http://xmlns.com/foaf/0.1/account> :Cristian_the_gamer ;
+                  <http://xmlns.com/foaf/0.1/birthday> "1967-11-10T00:00:00Z"^^xsd:dateTime ;
+                  <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
+                  <http://xmlns.com/foaf/0.1/name> "Cristian De Niro"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cristian_the_gamer
 :Cristian_the_gamer rdf:type owl:NamedIndividual ,
-                             foaf:OnlineEcommerceAccount ;
-                    foaf:accountName "Cristian_the_gamer"^^xsd:string .
+                             <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+                    <http://xmlns.com/foaf/0.1/accountName> "Cristian_the_gamer"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Electronic_Arts
 :Electronic_Arts rdf:type owl:NamedIndividual ,
-                          gr:Brand ;
-                 gr:name "Electronic Arts"^^xsd:string .
+                          <http://purl.org/goodrelations/v1#Brand> ;
+                 <http://purl.org/goodrelations/v1#name> "Electronic Arts"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#France
 :France rdf:type owl:NamedIndividual ,
                  :Country ;
-        vcard:country-name "France"^^xsd:string .
+        <http://www.w3.org/2006/vcard/ns#country-name> "France"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#HP
 :HP rdf:type owl:NamedIndividual ,
-             gr:Brand ;
-    gr:name "HP"^^xsd:string .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#IOS
-:IOS rdf:type owl:NamedIndividual .
+             <http://purl.org/goodrelations/v1#Brand> ;
+    <http://purl.org/goodrelations/v1#name> "HP"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Italy
 :Italy rdf:type owl:NamedIndividual ,
                 :Country ;
-       vcard:country-name "Italy"^^xsd:string .
+       <http://www.w3.org/2006/vcard/ns#country-name> "Italy"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Jennifer_Lawrence
 :Jennifer_Lawrence rdf:type owl:NamedIndividual ,
-                            foaf:Person ;
-                   foaf:account :LawrenceJennifer ;
-                   foaf:birthday "1977-10-10T00:00:00Z"^^xsd:dateTime ;
-                   foaf:gender "female"^^xsd:string ;
-                   foaf:name "Jennifer Lawrence"^^xsd:string .
+                            <http://xmlns.com/foaf/0.1/Person> ;
+                   <http://xmlns.com/foaf/0.1/account> :LawrenceJennifer ;
+                   <http://xmlns.com/foaf/0.1/birthday> "1977-10-10T00:00:00Z"^^xsd:dateTime ;
+                   <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
+                   <http://xmlns.com/foaf/0.1/name> "Jennifer Lawrence"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#John_Snow
 :John_Snow rdf:type owl:NamedIndividual ,
-                    foaf:Person ;
-           foaf:account :john_snow ;
-           foaf:birthday "1997-10-10T00:00:00Z"^^xsd:dateTime ;
-           foaf:gender "male"^^xsd:string ;
-           foaf:name "John Snow"^^xsd:string .
+                    <http://xmlns.com/foaf/0.1/Person> ;
+           <http://xmlns.com/foaf/0.1/account> :john_snow ;
+           <http://xmlns.com/foaf/0.1/birthday> "1997-10-10T00:00:00Z"^^xsd:dateTime ;
+           <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
+           <http://xmlns.com/foaf/0.1/name> "John Snow"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#JulieJuliette
 :JulieJuliette rdf:type owl:NamedIndividual ,
-                        foaf:OnlineEcommerceAccount ;
-               foaf:accountName "JulieJuliette"^^xsd:string .
+                        <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+               <http://xmlns.com/foaf/0.1/accountName> "JulieJuliette"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Julie_Lacroix
 :Julie_Lacroix rdf:type owl:NamedIndividual ,
-                        foaf:Person ;
-               foaf:account :JulieJuliette ;
-               foaf:birthday "1999-10-10T00:00:00Z"^^xsd:dateTime ;
-               foaf:gender "female"^^xsd:string ;
-               foaf:name "Julie Lacroix"^^xsd:string .
+                        <http://xmlns.com/foaf/0.1/Person> ;
+               <http://xmlns.com/foaf/0.1/account> :JulieJuliette ;
+               <http://xmlns.com/foaf/0.1/birthday> "1999-10-10T00:00:00Z"^^xsd:dateTime ;
+               <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
+               <http://xmlns.com/foaf/0.1/name> "Julie Lacroix"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#LawrenceJennifer
 :LawrenceJennifer rdf:type owl:NamedIndividual ,
-                           foaf:OnlineEcommerceAccount ;
-                  foaf:accountName "LawrenceJennifer"^^xsd:string .
+                           <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+                  <http://xmlns.com/foaf/0.1/accountName> "LawrenceJennifer"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Logitech
 :Logitech rdf:type owl:NamedIndividual ,
-                   gr:Brand ;
-          gr:name "Logitech"^^xsd:string .
+                   <http://purl.org/goodrelations/v1#Brand> ;
+          <http://purl.org/goodrelations/v1#name> "Logitech"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#London
@@ -1515,8 +1582,8 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#MAXTOR
 :MAXTOR rdf:type owl:NamedIndividual ,
-                 gr:Brand ;
-        gr:name "Maxtor"^^xsd:string .
+                 <http://purl.org/goodrelations/v1#Brand> ;
+        <http://purl.org/goodrelations/v1#name> "Maxtor"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Madrid
@@ -1527,26 +1594,26 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Mario_Rodriguez
 :Mario_Rodriguez rdf:type owl:NamedIndividual ,
-                          foaf:Person ;
-                 foaf:account :therealRodriguez ;
-                 foaf:birthday "1990-09-10T00:00:00Z"^^xsd:dateTime ;
-                 foaf:gender "male"^^xsd:string ;
-                 foaf:name "Mario Rodriguez"^^xsd:string .
+                          <http://xmlns.com/foaf/0.1/Person> ;
+                 <http://xmlns.com/foaf/0.1/account> :therealRodriguez ;
+                 <http://xmlns.com/foaf/0.1/birthday> "1990-09-10T00:00:00Z"^^xsd:dateTime ;
+                 <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
+                 <http://xmlns.com/foaf/0.1/name> "Mario Rodriguez"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Mario_Rossi
 :Mario_Rossi rdf:type owl:NamedIndividual ,
-                      foaf:Person ;
-             foaf:account :mario_red_10 ;
-             foaf:birthday "1997-10-10T00:00:00Z"^^xsd:dateTime ;
-             foaf:gender "male"^^xsd:string ;
-             foaf:name "Mario Rossi"^^xsd:string .
+                      <http://xmlns.com/foaf/0.1/Person> ;
+             <http://xmlns.com/foaf/0.1/account> :mario_red_10 ;
+             <http://xmlns.com/foaf/0.1/birthday> "2002-10-10T00:00:00Z"^^xsd:dateTime ;
+             <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
+             <http://xmlns.com/foaf/0.1/name> "Mario Rossi"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
-                    gr:Brand ;
-           gr:name "Microsoft"^^xsd:string .
+                    <http://purl.org/goodrelations/v1#Brand> ;
+           <http://purl.org/goodrelations/v1#name> "Microsoft"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Milan
@@ -1561,8 +1628,8 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#NVIDIA
 :NVIDIA rdf:type owl:NamedIndividual ,
-                 gr:Brand ;
-        gr:name "Nvidia"^^xsd:string .
+                 <http://purl.org/goodrelations/v1#Brand> ;
+        <http://purl.org/goodrelations/v1#name> "Nvidia"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#OS_X
@@ -1571,8 +1638,8 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#OneOdio
 :OneOdio rdf:type owl:NamedIndividual ,
-                  gr:Brand ;
-         gr:name "One Odio"^^xsd:string .
+                  <http://purl.org/goodrelations/v1#Brand> ;
+         <http://purl.org/goodrelations/v1#name> "One Odio"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Oxford
@@ -1589,29 +1656,29 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#PlayStation
 :PlayStation rdf:type owl:NamedIndividual ,
-                      gr:Brand ;
-             gr:name "PlayStation"^^xsd:string .
+                      <http://purl.org/goodrelations/v1#Brand> ;
+             <http://purl.org/goodrelations/v1#name> "PlayStation"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rivbox
 :Rivbox rdf:type owl:NamedIndividual ,
-                 gr:Brand ;
-        gr:name "Rivbox"^^xsd:string .
+                 <http://purl.org/goodrelations/v1#Brand> ;
+        <http://purl.org/goodrelations/v1#name> "Rivbox"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Roberta_Sereni
 :Roberta_Sereni rdf:type owl:NamedIndividual ,
-                         foaf:Person ;
-                foaf:account :SereniRoberta97 ;
-                foaf:birthday "1997-03-12T00:00:00Z"^^xsd:dateTime ;
-                foaf:gender "female"^^xsd:string ;
-                foaf:name "Roberta Sereni"^^xsd:string .
+                         <http://xmlns.com/foaf/0.1/Person> ;
+                <http://xmlns.com/foaf/0.1/account> :SereniRoberta97 ;
+                <http://xmlns.com/foaf/0.1/birthday> "1997-03-12T00:00:00Z"^^xsd:dateTime ;
+                <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
+                <http://xmlns.com/foaf/0.1/name> "Roberta Sereni"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rockstar_Games
 :Rockstar_Games rdf:type owl:NamedIndividual ,
-                         gr:Brand ;
-                gr:name "Rockstar Games"^^xsd:string .
+                         <http://purl.org/goodrelations/v1#Brand> ;
+                <http://purl.org/goodrelations/v1#name> "Rockstar Games"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rome
@@ -1622,146 +1689,134 @@ foaf:Person rdf:type owl:Class ;
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rose_Cohen
 :Rose_Cohen rdf:type owl:NamedIndividual ,
-                     foaf:Person ;
-            foaf:account :lavieenrose ;
-            foaf:birthday "1991-02-03T00:00:00Z"^^xsd:dateTime ;
-            foaf:gender "female"^^xsd:string ;
-            foaf:name "Rose Cohen"^^xsd:string .
+                     <http://xmlns.com/foaf/0.1/Person> ;
+            <http://xmlns.com/foaf/0.1/account> :lavieenrose ;
+            <http://xmlns.com/foaf/0.1/birthday> "1991-02-03T00:00:00Z"^^xsd:dateTime ;
+            <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
+            <http://xmlns.com/foaf/0.1/name> "Rose Cohen"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#RueDeLaPaix_10_Paris
 :RueDeLaPaix_10_Paris rdf:type owl:NamedIndividual ,
-                               vcard:Location ;
+                               <http://www.w3.org/2006/vcard/ns#Location> ;
                       :locatedInCity :Paris ;
-                      vcard:locality "Paris"^^xsd:string ;
-                      vcard:postal-code "75002"^^xsd:string ;
-                      vcard:street-address "Rue de la Paix, 10"^^xsd:string .
+                      <http://www.w3.org/2006/vcard/ns#locality> "Paris"^^xsd:string ;
+                      <http://www.w3.org/2006/vcard/ns#postal-code> "75002"^^xsd:string ;
+                      <http://www.w3.org/2006/vcard/ns#street-address> "Rue de la Paix, 10"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SAMSUNG
 :SAMSUNG rdf:type owl:NamedIndividual ,
-                  gr:Brand ;
-         gr:name "Samsung"^^xsd:string .
+                  <http://purl.org/goodrelations/v1#Brand> ;
+         <http://purl.org/goodrelations/v1#name> "Samsung"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SanDisk
 :SanDisk rdf:type owl:NamedIndividual ,
-                  gr:Brand ;
-         gr:name "SanDisk"^^xsd:string .
+                  <http://purl.org/goodrelations/v1#Brand> ;
+         <http://purl.org/goodrelations/v1#name> "SanDisk"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Sara_Bianchi
 :Sara_Bianchi rdf:type owl:NamedIndividual ,
-                       foaf:Person ;
-              foaf:account :bianchis_89 ;
-              foaf:birthday "1989-12-10T00:00:00Z"^^xsd:dateTime ;
-              foaf:gender "female"^^xsd:string ;
-              foaf:name "Sara Bianchi"^^xsd:string .
+                       <http://xmlns.com/foaf/0.1/Person> ;
+              <http://xmlns.com/foaf/0.1/account> :bianchis_89 ;
+              <http://xmlns.com/foaf/0.1/birthday> "1989-12-10T00:00:00Z"^^xsd:dateTime ;
+              <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
+              <http://xmlns.com/foaf/0.1/name> "Sara Bianchi"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SereniRoberta97
 :SereniRoberta97 rdf:type owl:NamedIndividual ,
-                          foaf:OnlineEcommerceAccount ;
-                 foaf:accountName "SereniRoberta97"^^xsd:string .
+                          <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+                 <http://xmlns.com/foaf/0.1/accountName> "SereniRoberta97"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Sony
 :Sony rdf:type owl:NamedIndividual ,
-               gr:Brand ;
-      gr:name "Sony"^^xsd:string .
+               <http://purl.org/goodrelations/v1#Brand> ;
+      <http://purl.org/goodrelations/v1#name> "Sony"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Spain
 :Spain rdf:type owl:NamedIndividual ,
                 :Country ;
-       vcard:country-name "Spain"^^xsd:string .
+       <http://www.w3.org/2006/vcard/ns#country-name> "Spain"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#TOSHIBA
 :TOSHIBA rdf:type owl:NamedIndividual ,
-                  gr:Brand ;
-         gr:name "Toshiba"^^xsd:string .
+                  <http://purl.org/goodrelations/v1#Brand> ;
+         <http://purl.org/goodrelations/v1#name> "Toshiba"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#UK
 :UK rdf:type owl:NamedIndividual ,
              :Country ;
-    vcard:country-name "United Kingdom"^^xsd:string .
+    <http://www.w3.org/2006/vcard/ns#country-name> "United Kingdom"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ViaAchillePapa_4_Rome
 :ViaAchillePapa_4_Rome rdf:type owl:NamedIndividual ,
-                                vcard:Location ;
+                                <http://www.w3.org/2006/vcard/ns#Location> ;
                        :locatedInCity :Rome ;
-                       vcard:locality "Rome"^^xsd:string ;
-                       vcard:postal-code "00195"^^xsd:string ;
-                       vcard:street-address "Via Achille Papa, 4"^^xsd:string .
+                       <http://www.w3.org/2006/vcard/ns#locality> "Rome"^^xsd:string ;
+                       <http://www.w3.org/2006/vcard/ns#postal-code> "00195"^^xsd:string ;
+                       <http://www.w3.org/2006/vcard/ns#street-address> "Via Achille Papa, 4"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ViaDelleSirene_12_Rome
 :ViaDelleSirene_12_Rome rdf:type owl:NamedIndividual ,
-                                 vcard:Location ;
+                                 <http://www.w3.org/2006/vcard/ns#Location> ;
                         :locatedInCity :Rome ;
-                        vcard:locality "Ostia"^^xsd:string ;
-                        vcard:postal-code "00122"^^xsd:string ;
-                        vcard:street-address "Via delle Sirene, 12"^^xsd:string .
+                        <http://www.w3.org/2006/vcard/ns#locality> "Ostia"^^xsd:string ;
+                        <http://www.w3.org/2006/vcard/ns#postal-code> "00122"^^xsd:string ;
+                        <http://www.w3.org/2006/vcard/ns#street-address> "Via delle Sirene, 12"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ViaMilano_55_Milan
 :ViaMilano_55_Milan rdf:type owl:NamedIndividual ,
-                             vcard:Location ;
+                             <http://www.w3.org/2006/vcard/ns#Location> ;
                     :locatedInCity :Milan ;
-                    vcard:locality "Milan"^^xsd:string ;
-                    vcard:postal-code "20021"^^xsd:string ;
-                    vcard:street-address "Via Milano, 55"^^xsd:string .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Windows
-:Windows rdf:type owl:NamedIndividual .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Wired
-:Wired rdf:type owl:NamedIndividual .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Wireless
-:Wireless rdf:type owl:NamedIndividual .
+                    <http://www.w3.org/2006/vcard/ns#locality> "Milan"^^xsd:string ;
+                    <http://www.w3.org/2006/vcard/ns#postal-code> "20021"^^xsd:string ;
+                    <http://www.w3.org/2006/vcard/ns#street-address> "Via Milano, 55"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#alessioNeri87
 :alessioNeri87 rdf:type owl:NamedIndividual ,
-                        foaf:OnlineEcommerceAccount ;
-               foaf:accountName "alessioNeri87"^^xsd:string .
+                        <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+               <http://xmlns.com/foaf/0.1/accountName> "alessioNeri87"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#bianchis_89
 :bianchis_89 rdf:type owl:NamedIndividual ,
-                      foaf:OnlineEcommerceAccount ;
-             foaf:accountName "bianchis_89"^^xsd:string .
+                      <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+             <http://xmlns.com/foaf/0.1/accountName> "bianchis_89"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#john_snow
 :john_snow rdf:type owl:NamedIndividual ,
-                    foaf:OnlineEcommerceAccount ;
-           foaf:accountName "john_snow"^^xsd:string .
+                    <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+           <http://xmlns.com/foaf/0.1/accountName> "john_snow"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#lavieenrose
 :lavieenrose rdf:type owl:NamedIndividual ,
-                      foaf:OnlineEcommerceAccount ;
-             foaf:accountName "lavieenrose"^^xsd:string .
+                      <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+             <http://xmlns.com/foaf/0.1/accountName> "lavieenrose"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#mario_red_10
 :mario_red_10 rdf:type owl:NamedIndividual ,
-                       foaf:OnlineEcommerceAccount ;
-              foaf:accountName "mario_red_10"^^xsd:string .
+                       <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+              <http://xmlns.com/foaf/0.1/accountName> "mario_red_10"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#therealRodriguez
 :therealRodriguez rdf:type owl:NamedIndividual ,
-                           foaf:OnlineEcommerceAccount ;
-                  foaf:accountName "therealRodriguez"^^xsd:string .
+                           <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+                  <http://xmlns.com/foaf/0.1/accountName> "therealRodriguez"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B_Cristian_the_gamer_2021-02-09T00:00:00
@@ -2050,47 +2105,28 @@ foaf:Person rdf:type owl:Class ;
                                                                                                   :actionDatetime "2021-02-10T18:30:00"^^xsd:dateTime .
 
 
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "232.44551260616157"^^xsd:double ;
-  <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "208.3085447788533"^^xsd:double ;
-  rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_therealRodriguez_2021-03-27T12:50:00
+<http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_therealRodriguez_2021-03-27T12:50:00> rdf:type owl:NamedIndividual ,
+                                                                                                               :ProductVisualization ;
+                                                                                                      :ofProduct :B01MU8TZRV ;
+                                                                                                      :performedByUser :therealRodriguez ;
+                                                                                                      :actionDatetime "2021-03-27T12:50:00"^^xsd:dateTime .
+
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+  <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
 ] .
 
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "50.61054522854144"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "289.868143668448"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "33.06132808359797"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "140.9699089572571"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.1360847098059"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "31.447160943472465"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "169.65840389029682"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "136.06535232672"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "165.66827085491883"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "16.869873007270122"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "131.22150578217745"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "155.16942343232478"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
 [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "248.80216021948402"^^xsd:double ;
@@ -2104,6 +2140,97 @@ foaf:Person rdf:type owl:Class ;
 
 [ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "232.44551260616157"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "208.3085447788533"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "165.66827085491883"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "16.869873007270122"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "131.22150578217745"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "155.16942343232478"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "169.65840389029682"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "136.06535232672"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "33.06132808359797"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "140.9699089572571"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.1360847098059"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "31.447160943472465"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "50.61054522854144"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "289.868143668448"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
 #################################################################
@@ -2363,5 +2490,775 @@ foaf:Person rdf:type owl:Class ;
                       )
 ] .
 
+
+#################################################################
+#    Rules
+#################################################################
+
+:s rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:p rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:v rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:product rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:buy rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:name rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:price rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:product_name rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:p_el rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:elec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:s_elec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:usr rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:buying rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:s_buy rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:intersec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:s_intersec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:a rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:u rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:c rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:date rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:hasPrice rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:birthday rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:age rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment ""^^xsd:string ;
+   rdfs:label "12-All (data) properties of a laptop"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/5.0.0/abox.owl#dpaa> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :s
+                                                                                                    :p
+                                                                                                    :v
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#classPredicate> :Laptop ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :s
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#selectDistinct> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :p
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Outputs all the properties defined for objects of category Printer"^^xsd:string ;
+   rdfs:label "11-All (data) properties of a printer"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/5.0.0/abox.owl#dpaa> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :s
+                                                                                                    :p
+                                                                                                    :v
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#classPredicate> :Printer ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :s
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#selectDistinct> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :p
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "This query simply returns all products URIs."^^xsd:string ;
+   rdfs:label "1-Get all products"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :p
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Mostly sold product, aggregating query using count"^^xsd:string ;
+   rdfs:label "8-Best seller"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :product
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :ofProduct ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :buy ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :p
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :ProductBuying ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :buy
+                                                                                      ] ;
+                                                                            rdf:rest rdf:nil
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :product
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#count> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> ( :buy
+                                                                                                             )
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#columnNames> ;
+                                                                             <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                          rdf:first "Product"^^xsd:string ;
+                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                     rdf:first "N_bought"^^xsd:string ;
+                                                                                                                                     rdf:rest rdf:nil
+                                                                                                                                   ]
+                                                                                                                        ]
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#orderByDescending> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#arguments> ( :buy
+                                                                                                                                   )
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#firstN> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first 1 ;
+                                                                                                                                                rdf:rest rdf:nil
+                                                                                                                                              ]
+                                                                                                 ] ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Detects products of brand Apple"^^xsd:string ;
+   rdfs:label "3-Apple product"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#hasBrand> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :Apple
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :name
+                                                                           ] ;
+                                                                 rdf:rest rdf:nil
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :p
+                                                                                                    :name
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Example query for a usb pendrive with 128 GB that costs less than 100 euros."^^xsd:string ;
+   rdfs:label "4-Product retrieval query"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :product
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#contains> ;
+                                                                             <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                          rdf:first :product ;
+                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                     rdf:first "USB"^^xsd:string ;
+                                                                                                                                     rdf:rest rdf:nil
+                                                                                                                                   ]
+                                                                                                                        ]
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasPrice ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> :price
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#lessThan> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first :price ;
+                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first 100 ;
+                                                                                                                                                           rdf:rest rdf:nil
+                                                                                                                                                         ]
+                                                                                                                                              ]
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasMemoryCapacity ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument2> "128.0"^^xsd:float
+                                                                                                            ] ;
+                                                                                                  rdf:rest rdf:nil
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :product
+                                                                                                    :price
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment ""^^xsd:string ;
+   rdfs:label "2-Get product name and price"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :product_name
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasPrice ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :price
+                                                                           ] ;
+                                                                 rdf:rest rdf:nil
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :product_name
+                                                                                                    :price
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Detects customers that bought products belonging ONLY to Electronic category."^^xsd:string ;
+   rdfs:label "9-ElectronicOnly Customer"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product_Electronics ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p_el
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#makeSet> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> ( :elec
+                                                                                                               :p_el
+                                                                                                             )
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#size> ;
+                                                                             <http://www.w3.org/2003/11/swrl#arguments> ( :s_elec
+                                                                                                                          :elec
+                                                                                                                        )
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :ProductBuying ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :buy
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#propertyPredicate> :ofProduct ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument1> :buy ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument2> :p
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#propertyPredicate> :performedByUser ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument1> :buy ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#argument2> :usr
+                                                                                                            ] ;
+                                                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#makeSet> ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#arguments> ( :buying
+                                                                                                                                                                      :p
+                                                                                                                                                                    )
+                                                                                                                       ] ;
+                                                                                                             rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                        rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#groupBy> ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#arguments> ( :buying
+                                                                                                                                                                                 :usr
+                                                                                                                                                                               )
+                                                                                                                                  ] ;
+                                                                                                                        rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                   rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                               <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#size> ;
+                                                                                                                                               <http://www.w3.org/2003/11/swrl#arguments> ( :s_buy
+                                                                                                                                                                                            :buying
+                                                                                                                                                                                          )
+                                                                                                                                             ] ;
+                                                                                                                                   rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                              rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                                          <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#intersection> ;
+                                                                                                                                                          <http://www.w3.org/2003/11/swrl#arguments> ( :intersec
+                                                                                                                                                                                                       :elec
+                                                                                                                                                                                                       :buying
+                                                                                                                                                                                                     )
+                                                                                                                                                        ] ;
+                                                                                                                                              rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                                         rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                                                     <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#size> ;
+                                                                                                                                                                     <http://www.w3.org/2003/11/swrl#arguments> ( :s_intersec
+                                                                                                                                                                                                                  :intersec
+                                                                                                                                                                                                                )
+                                                                                                                                                                   ] ;
+                                                                                                                                                         rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                                                                    rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                                                                <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#equal> ;
+                                                                                                                                                                                <http://www.w3.org/2003/11/swrl#arguments> ( :s_buy
+                                                                                                                                                                                                                             :s_intersec
+                                                                                                                                                                                                                           )
+                                                                                                                                                                              ] ;
+                                                                                                                                                                    rdf:rest rdf:nil
+                                                                                                                                                                  ]
+                                                                                                                                                       ]
+                                                                                                                                            ]
+                                                                                                                                 ]
+                                                                                                                      ]
+                                                                                                           ]
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :usr
+                                                                                                    :s_intersec
+                                                                                                    :s_buy
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "It can be used to analyze user actions after the launch (day) of a new product in category \"Gaming\""^^xsd:string ;
+   rdfs:label "7-User actions after a date"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :UserAction ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :a
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> :ofProduct ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :a ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :p
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :performedByUser ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :a ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :u
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> :product
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#classPredicate> :Product_Gaming ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/5.0.0/abox.owl#caa> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#arguments> ( :c
+                                                                                                                                                           :a
+                                                                                                                                                         )
+                                                                                                            ] ;
+                                                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#propertyPredicate> :actionDatetime ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#argument1> :a ;
+                                                                                                                         <http://www.w3.org/2003/11/swrl#argument2> :date
+                                                                                                                       ] ;
+                                                                                                             rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                                        rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#after> ;
+                                                                                                                                    <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                                                 rdf:first :date ;
+                                                                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                            rdf:first "2021-01-10T00:00:00"^^xsd:string ;
+                                                                                                                                                                                            rdf:rest rdf:nil
+                                                                                                                                                                                          ]
+                                                                                                                                                                               ]
+                                                                                                                                  ] ;
+                                                                                                                        rdf:rest rdf:nil
+                                                                                                                      ]
+                                                                                                           ]
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :c
+                                                                                                    :u
+                                                                                                    :date
+                                                                                                    :product
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#orderBy> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> ( :product
+                                                                                                             )
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Can be a useful info for a customer that is searching for videogames."^^xsd:string ;
+   rdfs:label "10-All prices for Videogames"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/5.0.0/abox.owl#dpaa> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :s
+                                                                                                    :hasPrice
+                                                                                                    :price
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#classPredicate> :Videogame ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :s
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#selectDistinct> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :price
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#orderByDescending> ;
+                                                                  <http://www.w3.org/2003/11/swrl#arguments> ( :price
+                                                                                                             )
+                                                                ] ;
+                                                      rdf:rest rdf:nil
+                                                    ]
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment ""^^xsd:string ;
+   rdfs:label "Set ages of people"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :name
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :a
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> :birthday
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#duration> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first :age ;
+                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first :birthday ;
+                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                      rdf:first "now"^^xsd:string ;
+                                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                 rdf:first "years"^^xsd:string ;
+                                                                                                                                                                                 rdf:rest rdf:nil
+                                                                                                                                                                               ]
+                                                                                                                                                                    ]
+                                                                                                                                                         ]
+                                                                                                                                              ]
+                                                                                                 ] ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/age> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                       <http://www.w3.org/2003/11/swrl#argument2> :age
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Infer customers' age through birthday and actual date"^^xsd:string ;
+   rdfs:label "5-Ages of People"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :name
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :a
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> :birthday
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#duration> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first :age ;
+                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first :birthday ;
+                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                      rdf:first "now"^^xsd:string ;
+                                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                 rdf:first "years"^^xsd:string ;
+                                                                                                                                                                                 rdf:rest rdf:nil
+                                                                                                                                                                               ]
+                                                                                                                                                                    ]
+                                                                                                                                                         ]
+                                                                                                                                              ]
+                                                                                                 ] ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :name
+                                                                                                    :age
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
+
+[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
+   rdfs:comment "Returns people with age <=19"^^xsd:string ;
+   rdfs:label "6-Teenagers"^^xsd:string ;
+   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
+                                                     ] ;
+                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :name
+                                                                ] ;
+                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                             <http://www.w3.org/2003/11/swrl#argument2> :a
+                                                                           ] ;
+                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
+                                                                                        <http://www.w3.org/2003/11/swrl#argument2> :birthday
+                                                                                      ] ;
+                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://swrl.stanford.edu/ontologies/built-ins/3.3/temporal.owl#duration> ;
+                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first :age ;
+                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first :birthday ;
+                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                      rdf:first "now"^^xsd:string ;
+                                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                 rdf:first "years"^^xsd:string ;
+                                                                                                                                                                                 rdf:rest rdf:nil
+                                                                                                                                                                               ]
+                                                                                                                                                                    ]
+                                                                                                                                                         ]
+                                                                                                                                              ]
+                                                                                                 ] ;
+                                                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#builtin> <http://www.w3.org/2003/11/swrlb#lessThan> ;
+                                                                                                              <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first :age ;
+                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                      rdf:first 20 ;
+                                                                                                                                                                      rdf:rest rdf:nil
+                                                                                                                                                                    ]
+                                                                                                                                                         ]
+                                                                                                            ] ;
+                                                                                                  rdf:rest rdf:nil
+                                                                                                ]
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ] ;
+   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
+                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :name
+                                                                                                    :age
+                                                                                                  )
+                                                     ] ;
+                                           rdf:rest rdf:nil
+                                         ]
+ ] .
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
