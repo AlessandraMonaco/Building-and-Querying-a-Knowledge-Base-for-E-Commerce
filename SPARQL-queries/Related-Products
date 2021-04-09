@@ -1,0 +1,24 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX gr: <http://purl.org/goodrelations/v1#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX : <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#>
+
+SELECT DISTINCT ?productID ?name ?price ?brand ?category
+WHERE { #Products of the same category
+{:B08L5PKKRJ a ?category.
+?productID a ?category;
+gr:name ?name;
+gr:hasBrand ?brand;
+:hasPrice ?price.
+FILTER (?productID != :B08L5PKKRJ) }
+UNION #Products of the same brand
+{?productID a ?category;
+gr:name ?name;
+gr:hasBrand ?brand;
+:hasPrice ?price.
+:B08L5PKKRJ gr:hasBrand ?brand. }
+FILTER (?category != owl:NamedIndividual) }
