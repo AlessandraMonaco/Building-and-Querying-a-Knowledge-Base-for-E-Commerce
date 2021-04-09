@@ -1,0 +1,1 @@
+foaf:OnlineEcommerceAccount and performsAction some (ProductBuying and deliveryLocation some (locatedInCity some (locatedInCountry value Italy)) )
