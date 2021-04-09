@@ -1,0 +1,2 @@
+foaf:Person(?p) ^ foaf:name(?p, ?name) ^ foaf:account(?p, ?a) ^ foaf:birthday(?p, ?birthday) ^ temporal:duration(?age, ?birthday, "now", "years") ^ swrlb:lessThan(?age, 20) 
+-> sqwrl:select(?name, ?age)
