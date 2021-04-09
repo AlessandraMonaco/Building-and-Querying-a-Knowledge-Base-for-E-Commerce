@@ -1,0 +1,2 @@
+Product(?p) ^ gr:name(?p, ?product) ^ swrlb:contains(?product, "USB") ^ hasPrice(?p, ?price) ^ swrlb:lessThan(?price, 100) ^ hasMemoryCapacity(?p, "128.0"^^xsd:float) 
+-> sqwrl:select(?product, ?price)
