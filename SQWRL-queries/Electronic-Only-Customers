@@ -1,0 +1,3 @@
+Product_Electronics(?p_el)  .  sqwrl:makeSet(?elec, ?p_el)  .  sqwrl:size(?s_elec, ?elec) ^ ProductBuying(?buy) ^ ofProduct(?buy, ?p) ^ performedByUser(?buy, ?usr) 
+^ sqwrl:makeSet(?buying, ?p) ^ sqwrl:groupBy(?buying, ?usr) ^ sqwrl:size(?s_buy, ?buying) ^ sqwrl:intersection(?intersec, ?elec, ?buying) ^ sqwrl:size(?s_intersec, ?intersec) 
+^ swrlb:equal(?s_buy, ?s_intersec) -> sqwrl:select(?usr, ?s_intersec, ?s_buy)
