@@ -1,0 +1,1 @@
+foaf:OnlineEcommerceAccount and performsAction some ( ProductBuying and (ofProduct some (Product and gr:hasBrand value Apple)) )
