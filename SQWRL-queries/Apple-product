@@ -1,0 +1,1 @@
+Product(?p) ^ gr:hasBrand(?p, Apple) ^ gr:name(?p, ?name) -> sqwrl:select(?p, ?name)
