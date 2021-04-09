@@ -1,0 +1,2 @@
+UserAction(?a) ^ ofProduct(?a, ?p) ^ performedByUser(?a, ?u) ^ gr:name(?p, ?product) ^ Product_Gaming(?p) ^ abox:caa(?c, ?a) ^ actionDatetime(?a, ?date) 
+^ temporal:after(?date, "2021-01-10T00:00:00") -> sqwrl:select(?c, ?u, ?date, ?product) ^ sqwrl:orderBy(?product)
