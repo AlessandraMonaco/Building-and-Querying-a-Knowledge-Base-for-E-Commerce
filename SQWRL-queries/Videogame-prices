@@ -1,0 +1,1 @@
+abox:dpaa(?s, hasPrice, ?price) ^ Videogame(?s) -> sqwrl:selectDistinct(?price) ^ sqwrl:orderByDescending(?price)
