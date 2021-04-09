@@ -1,23 +1,31 @@
 @prefix : <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#> .
+@prefix gr: <http://purl.org/goodrelations/v1#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @base <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce> .
 
 <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce> rdf:type owl:Ontology ;
-                                                                <http://ainf.aau.at/ontodebug#testCase> [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
-                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+                                                                <http://ainf.aau.at/ontodebug#testCase> [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
                                                                                                         ] ,
-                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
                                                                                                           <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
                                                                                                         ] ,
                                                                                                         [ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
                                                                                                           <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
                                                                                                         ] ,
-                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
-                                                                                                          <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+                                                                                                        ] ,
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "B07WPD3DTC Type Videogame"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+                                                                                                        ] ,
+                                                                                                        [ <http://ainf.aau.at/ontodebug#axiom> "B08BPTKHJH Type PlayStation4"^^xsd:string ;
+                                                                                                          <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
                                                                                                         ] ;
                                                                 rdfs:comment """This is a very simple Knowledge Base for an e-commerce website that sells tehcnological products (electronic, informatic, gaming consoles).
 The Knowledge Base contains information about both products and customer behaviour on the website (i.e clicking on a product to see details, buying a product, reviewing a product). This should be helpful for (i) customer experience improvement (for product retrieval), (ii) customer segmentation and (iii) analysis.
@@ -67,9 +75,9 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#hasBrand
-<http://purl.org/goodrelations/v1#hasBrand> rdf:type owl:ObjectProperty ;
-                                            rdfs:domain :Product ;
-                                            rdfs:range <http://purl.org/goodrelations/v1#Brand> .
+gr:hasBrand rdf:type owl:ObjectProperty ;
+            rdfs:domain :Product ;
+            rdfs:range gr:Brand .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#deliveryLocation
@@ -81,7 +89,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#hasGraphicBrand
 :hasGraphicBrand rdf:type owl:ObjectProperty ;
                  rdfs:domain :Product ;
-                 rdfs:range <http://purl.org/goodrelations/v1#Brand> .
+                 rdfs:range gr:Brand .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#locatedInCity
@@ -108,23 +116,23 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                  owl:inverseOf :performsAction ;
                  rdf:type owl:FunctionalProperty ;
                  rdfs:domain :UserAction ;
-                 rdfs:range <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> .
+                 rdfs:range foaf:OnlineEcommerceAccount .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#performsAction
 :performsAction rdf:type owl:ObjectProperty ;
-                rdfs:domain <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
+                rdfs:domain foaf:OnlineEcommerceAccount ;
                 rdfs:range :UserAction .
 
 
 ###  http://xmlns.com/foaf/0.1/account
-<http://xmlns.com/foaf/0.1/account> rdf:type owl:ObjectProperty ;
-                                    rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
-                                    rdfs:range <http://xmlns.com/foaf/0.1/OnlineAccount> ;
-                                    rdfs:comment "Indicates an account held by this agent." ;
-                                    rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                    rdfs:label "account" ;
-                                    <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+foaf:account rdf:type owl:ObjectProperty ;
+             rdfs:domain foaf:Agent ;
+             rdfs:range foaf:OnlineAccount ;
+             rdfs:comment "Indicates an account held by this agent." ;
+             rdfs:isDefinedBy foaf: ;
+             rdfs:label "account" ;
+             <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 #################################################################
@@ -132,10 +140,14 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#name
-<http://purl.org/goodrelations/v1#name> rdf:type owl:DatatypeProperty ,
-                                                 owl:FunctionalProperty ;
-                                        rdfs:domain <http://purl.org/goodrelations/v1#ProductOrService> ;
-                                        rdfs:range xsd:string .
+gr:name rdf:type owl:DatatypeProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:domain [ rdf:type owl:Class ;
+                      owl:unionOf ( gr:Brand
+                                    gr:ProductOrService
+                                  )
+                    ] ;
+        rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#actionDatetime
@@ -468,39 +480,39 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 
 ###  http://xmlns.com/foaf/0.1/accountName
-<http://xmlns.com/foaf/0.1/accountName> rdf:type owl:DatatypeProperty ,
-                                                 owl:FunctionalProperty ;
-                                        rdfs:domain <http://xmlns.com/foaf/0.1/OnlineAccount> ;
-                                        rdfs:range xsd:string ;
-                                        rdfs:comment "Indicates the name (identifier) associated with this online account. It's a string representing the username of the account." ;
-                                        rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                        rdfs:label "account name" ;
-                                        <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+foaf:accountName rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain foaf:OnlineAccount ;
+                 rdfs:range xsd:string ;
+                 rdfs:comment "Indicates the name (identifier) associated with this online account. It's a string representing the username of the account." ;
+                 rdfs:isDefinedBy foaf: ;
+                 rdfs:label "account name" ;
+                 <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/age
-<http://xmlns.com/foaf/0.1/age> rdf:type owl:DatatypeProperty ,
-                                         owl:FunctionalProperty ;
-                                rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
-                                rdfs:range xsd:integer ;
-                                rdfs:comment "The age in years of some agent." ;
-                                rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                rdfs:label "age" ;
-                                <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+foaf:age rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain foaf:Agent ;
+         rdfs:range xsd:integer ;
+         rdfs:comment "The age in years of some agent." ;
+         rdfs:isDefinedBy foaf: ;
+         rdfs:label "age" ;
+         <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 
 ###  http://xmlns.com/foaf/0.1/birthday
-<http://xmlns.com/foaf/0.1/birthday> rdf:type owl:DatatypeProperty ,
-                                              owl:FunctionalProperty ;
-                                     rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
-                                     rdfs:range xsd:dateTime ;
-                                     rdfs:comment "The birthday of this Agent, represented in mm-dd string form, eg. '12-31'." ;
-                                     rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                     rdfs:label "birthday" ;
-                                     <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+foaf:birthday rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain foaf:Agent ;
+              rdfs:range xsd:dateTime ;
+              rdfs:comment "The birthday of this Agent, represented in mm-dd string form, eg. '12-31'." ;
+              rdfs:isDefinedBy foaf: ;
+              rdfs:label "birthday" ;
+              <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 [ rdf:type owl:Axiom ;
-   owl:annotatedSource <http://xmlns.com/foaf/0.1/birthday> ;
+   owl:annotatedSource foaf:birthday ;
    owl:annotatedProperty rdfs:range ;
    owl:annotatedTarget xsd:dateTime ;
    rdfs:comment "For example : \"2010-10-10T00:00:00Z\"^^xsd:DateTime"
@@ -508,34 +520,34 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 
 ###  http://xmlns.com/foaf/0.1/gender
-<http://xmlns.com/foaf/0.1/gender> rdf:type owl:DatatypeProperty ,
-                                            owl:FunctionalProperty ;
-                                   rdfs:domain <http://xmlns.com/foaf/0.1/Agent> ;
-                                   rdfs:range xsd:string ,
-                                              [ rdf:type rdfs:Datatype ;
-                                                owl:oneOf [ rdf:type rdf:List ;
-                                                            rdf:first "female" ;
-                                                            rdf:rest [ rdf:type rdf:List ;
-                                                                       rdf:first "male" ;
-                                                                       rdf:rest rdf:nil
-                                                                     ]
-                                                          ]
-                                              ] ;
-                                   rdfs:comment "The gender of this Agent (typically but not necessarily 'male' or 'female')." ;
-                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                   rdfs:label "gender" ;
-                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+foaf:gender rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain foaf:Agent ;
+            rdfs:range xsd:string ,
+                       [ rdf:type rdfs:Datatype ;
+                         owl:oneOf [ rdf:type rdf:List ;
+                                     rdf:first "female" ;
+                                     rdf:rest [ rdf:type rdf:List ;
+                                                rdf:first "male" ;
+                                                rdf:rest rdf:nil
+                                              ]
+                                   ]
+                       ] ;
+            rdfs:comment "The gender of this Agent (typically but not necessarily 'male' or 'female')." ;
+            rdfs:isDefinedBy foaf: ;
+            rdfs:label "gender" ;
+            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/name
-<http://xmlns.com/foaf/0.1/name> rdf:type owl:DatatypeProperty ,
-                                          owl:FunctionalProperty ;
-                                 rdfs:domain owl:Thing ;
-                                 rdfs:range xsd:string ;
-                                 rdfs:comment "A name for some thing." ;
-                                 rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                 rdfs:label "name" ;
-                                 <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+foaf:name rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:domain owl:Thing ;
+          rdfs:range xsd:string ;
+          rdfs:comment "A name for some thing." ;
+          rdfs:isDefinedBy foaf: ;
+          rdfs:label "name" ;
+          <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 #################################################################
@@ -543,12 +555,12 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 #################################################################
 
 ###  http://purl.org/goodrelations/v1#Brand
-<http://purl.org/goodrelations/v1#Brand> rdf:type owl:Class ;
-                                         rdfs:comment "This class comes from the Good Relation vocabulary." .
+gr:Brand rdf:type owl:Class ;
+         rdfs:comment "This class comes from the Good Relation vocabulary." .
 
 
 ###  http://purl.org/goodrelations/v1#ProductOrService
-<http://purl.org/goodrelations/v1#ProductOrService> rdf:type owl:Class .
+gr:ProductOrService rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cellphone
@@ -692,13 +704,13 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                              :Product_Informatics
                                            )
                              ] ;
-         rdfs:subClassOf <http://purl.org/goodrelations/v1#ProductOrService> ,
+         rdfs:subClassOf gr:ProductOrService ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://purl.org/goodrelations/v1#hasBrand> ;
-                           owl:someValuesFrom <http://purl.org/goodrelations/v1#Brand>
+                           owl:onProperty gr:hasBrand ;
+                           owl:someValuesFrom gr:Brand
                          ] ,
                          [ rdf:type owl:Restriction ;
-                           owl:onProperty <http://purl.org/goodrelations/v1#name> ;
+                           owl:onProperty gr:name ;
                            owl:someValuesFrom xsd:string
                          ] ,
                          [ rdf:type owl:Restriction ;
@@ -715,20 +727,20 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    owl:annotatedSource :Product ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://purl.org/goodrelations/v1#hasBrand> ;
-                         owl:someValuesFrom <http://purl.org/goodrelations/v1#Brand>
+                         owl:onProperty :hasPrice ;
+                         owl:someValuesFrom xsd:double
                        ] ;
-   rdfs:comment "Every product has a Brand."
+   rdfs:comment "Every product has a price."
  ] .
 
 [ rdf:type owl:Axiom ;
    owl:annotatedSource :Product ;
    owl:annotatedProperty rdfs:subClassOf ;
    owl:annotatedTarget [ rdf:type owl:Restriction ;
-                         owl:onProperty :hasPrice ;
-                         owl:someValuesFrom xsd:double
+                         owl:onProperty gr:hasBrand ;
+                         owl:someValuesFrom gr:Brand
                        ] ;
-   rdfs:comment "Every product has a price."
+   rdfs:comment "Every product has a Brand."
  ] .
 
 
@@ -828,7 +840,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :performedByUser ;
-                              owl:someValuesFrom <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount>
+                              owl:someValuesFrom foaf:OnlineEcommerceAccount
                             ] ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty :actionDatetime ;
@@ -925,41 +937,41 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 
 ###  http://xmlns.com/foaf/0.1/Agent
-<http://xmlns.com/foaf/0.1/Agent> rdf:type owl:Class ;
-                                  rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
-                                  rdfs:label "Agent" ;
-                                  <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
+foaf:Agent rdf:type owl:Class ;
+           rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+           rdfs:label "Agent" ;
+           <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
 
 
 ###  http://xmlns.com/foaf/0.1/OnlineAccount
-<http://xmlns.com/foaf/0.1/OnlineAccount> rdf:type owl:Class ;
-                                          rdfs:subClassOf owl:Thing ;
-                                          rdfs:comment "An online account." ;
-                                          rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                          rdfs:label "Online Account" ;
-                                          <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
+foaf:OnlineAccount rdf:type owl:Class ;
+                   rdfs:subClassOf owl:Thing ;
+                   rdfs:comment "An online account." ;
+                   rdfs:isDefinedBy foaf: ;
+                   rdfs:label "Online Account" ;
+                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "testing" .
 
 
 ###  http://xmlns.com/foaf/0.1/OnlineEcommerceAccount
-<http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> rdf:type owl:Class ;
-                                                   rdfs:subClassOf <http://xmlns.com/foaf/0.1/OnlineAccount> ,
-                                                                   [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty <http://xmlns.com/foaf/0.1/accountName> ;
-                                                                     owl:someValuesFrom xsd:string
-                                                                   ] ;
-                                                   rdfs:comment "An online e-commerce account." ;
-                                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                                   rdfs:label "Online E-commerce Account" ;
-                                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
+foaf:OnlineEcommerceAccount rdf:type owl:Class ;
+                            rdfs:subClassOf foaf:OnlineAccount ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty foaf:accountName ;
+                                              owl:someValuesFrom xsd:string
+                                            ] ;
+                            rdfs:comment "An online e-commerce account." ;
+                            rdfs:isDefinedBy foaf: ;
+                            rdfs:label "Online E-commerce Account" ;
+                            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "unstable" .
 
 
 ###  http://xmlns.com/foaf/0.1/Person
-<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
-                                   rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
-                                   rdfs:comment "A person." ;
-                                   rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-                                   rdfs:label "Person" ;
-                                   <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf foaf:Agent ;
+            rdfs:comment "A person." ;
+            rdfs:isDefinedBy foaf: ;
+            rdfs:label "Person" ;
+            <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
 
 
 #################################################################
@@ -968,37 +980,37 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#ASUS
 :ASUS rdf:type owl:NamedIndividual ,
-               <http://purl.org/goodrelations/v1#Brand> ;
-      <http://purl.org/goodrelations/v1#name> "Asus"^^xsd:string .
+               gr:Brand ;
+      gr:name "Asus"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Activision_Blizzard
 :Activision_Blizzard rdf:type owl:NamedIndividual ,
-                              <http://purl.org/goodrelations/v1#Brand> ;
-                     <http://purl.org/goodrelations/v1#name> "Activision Blizzard"^^xsd:string .
+                              gr:Brand ;
+                     gr:name "Activision Blizzard"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Alessio_Neri
 :Alessio_Neri rdf:type owl:NamedIndividual ,
-                       <http://xmlns.com/foaf/0.1/Person> ;
-              <http://xmlns.com/foaf/0.1/account> :alessioNeri87 ;
-              <http://xmlns.com/foaf/0.1/birthday> "1987-10-06T00:00:00Z"^^xsd:dateTime ;
-              <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
-              <http://xmlns.com/foaf/0.1/name> "Alessio Neri"^^xsd:string .
+                       foaf:Person ;
+              foaf:account :alessioNeri87 ;
+              foaf:birthday "1987-10-06T00:00:00Z"^^xsd:dateTime ;
+              foaf:gender "male"^^xsd:string ;
+              foaf:name "Alessio Neri"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Apple
 :Apple rdf:type owl:NamedIndividual ,
-                <http://purl.org/goodrelations/v1#Brand> ;
-       <http://purl.org/goodrelations/v1#name> "Apple"^^xsd:string .
+                gr:Brand ;
+       gr:name "Apple"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00D2PX8C2
 :B00D2PX8C2 rdf:type owl:NamedIndividual ,
                      :Keyboard ,
                      :Mouse ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
-            <http://purl.org/goodrelations/v1#name> "Logitech MK270 Kit Tastiera e Mouse Wireless per Windows, Wireless 2.4 GHz, Mouse ‎Wireless Compatto, 8 Tasti Multimediali e Scelta Rapida, Durata Batteria 2 anni, PC/Laptop, ‎Layout Italiano QWERTY"^^xsd:string ;
+            gr:hasBrand :Logitech ;
+            gr:name "Logitech MK270 Kit Tastiera e Mouse Wireless per Windows, Wireless 2.4 GHz, Mouse ‎Wireless Compatto, 8 Tasti Multimediali e Scelta Rapida, Durata Batteria 2 anni, PC/Laptop, ‎Layout Italiano QWERTY"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -1009,8 +1021,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00NBR7962
 :B00NBR7962 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
-            <http://purl.org/goodrelations/v1#name> "Sony MDR-ZX110 - Cuffie on-ear, Bianco"^^xsd:string ;
+            gr:hasBrand :Sony ;
+            gr:name "Sony MDR-ZX110 - Cuffie on-ear, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Wired"^^xsd:string ;
             :hasPrice "11.99"^^xsd:double .
@@ -1019,8 +1031,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B00VEA9LD2
 :B00VEA9LD2 rdf:type owl:NamedIndividual ,
                      :Printer ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
-            <http://purl.org/goodrelations/v1#name> "Samsung SL-M2026 Xpress Stampante a Laser Monocromatica"^^xsd:string ;
+            gr:hasBrand :SAMSUNG ;
+            gr:name "Samsung SL-M2026 Xpress Stampante a Laser Monocromatica"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasMemoryCapacity "0.08"^^xsd:float ;
@@ -1033,8 +1045,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B016MUCHTS
 :B016MUCHTS rdf:type owl:NamedIndividual ,
                      :Mouse ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Apple Magic Mouse 2"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Apple Magic Mouse 2"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasPrice "75.77"^^xsd:double ;
@@ -1044,8 +1056,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B016MUCJ5A
 :B016MUCJ5A rdf:type owl:NamedIndividual ,
                      :Keyboard ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Apple Magic Keyboard - Italiano"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Apple Magic Keyboard - Italiano"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasPrice "89.99"^^xsd:double .
@@ -1055,8 +1067,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B01KT8D5SG rdf:type owl:NamedIndividual ,
                      :Keyboard ,
                      :VideogameAccessory ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
-            <http://purl.org/goodrelations/v1#name> "Logitech G213 Prodigy Tastiera Gaming, RGB Lightsync Backlit Keys, Resistente agli schizzi, Tasti personalizzabili, Tasti multimedia personalizzabili, Layout QWERTY US, Nero"^^xsd:string ;
+            gr:hasBrand :Logitech ;
+            gr:name "Logitech G213 Prodigy Tastiera Gaming, RGB Lightsync Backlit Keys, Resistente agli schizzi, Tasti personalizzabili, Tasti multimedia personalizzabili, Layout QWERTY US, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -1068,8 +1080,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B01M2YUP0S rdf:type owl:NamedIndividual ,
                      :VideogameConsole ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
-            <http://purl.org/goodrelations/v1#name> "Xbox One - Xbox One S 1 TB, Bianco"^^xsd:string ;
+            gr:hasBrand :Microsoft ;
+            gr:name "Xbox One - Xbox One S 1 TB, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasPrice "380.0"^^xsd:double .
 
@@ -1077,8 +1089,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B01MU8TZRV
 :B01MU8TZRV rdf:type owl:NamedIndividual ,
                      :UsbDrive ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SanDisk ;
-            <http://purl.org/goodrelations/v1#name> "SanDisk 128GB Extreme PRO USB 3.1 Solid State Flash Drive - SDCZ880-128G-G46"^^xsd:string ;
+            gr:hasBrand :SanDisk ;
+            gr:name "SanDisk 128GB Extreme PRO USB 3.1 Solid State Flash Drive - SDCZ880-128G-G46"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
@@ -1089,8 +1101,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B0749V8T1B rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
-            <http://purl.org/goodrelations/v1#name> "The Sims 4 - PlayStation 4 - Italiano"^^xsd:string ;
+            gr:hasBrand :Electronic_Arts ;
+            gr:name "The Sims 4 - PlayStation 4 - Italiano"^^xsd:string ;
             :hasPrice "19.99"^^xsd:double .
 
 
@@ -1098,16 +1110,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B0749WY325 rdf:type owl:NamedIndividual ,
                      :Videogame ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
-            <http://purl.org/goodrelations/v1#name> "The Sims 4 - Xbox One"^^xsd:string ;
+            gr:hasBrand :Electronic_Arts ;
+            gr:name "The Sims 4 - Xbox One"^^xsd:string ;
             :hasPrice "19.99"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B075NLML9V
 :B075NLML9V rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Apple MacBook Air 13\" (A1466) / Intel Core i5 / RAM 8GB / 250GB SSD / Tastiera Qwerty UK (Ricondizionato)"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Apple MacBook Air 13\" (A1466) / Intel Core i5 / RAM 8GB / 250GB SSD / Tastiera Qwerty UK (Ricondizionato)"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
@@ -1120,8 +1132,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B078Y36QFJ rdf:type owl:NamedIndividual ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
-            <http://purl.org/goodrelations/v1#name> "Microsoft PC: Nuovo Xbox Controller + Wireless Adapter per Windows 10 [Bundle]"^^xsd:string ;
+            gr:hasBrand :Microsoft ;
+            gr:name "Microsoft PC: Nuovo Xbox Controller + Wireless Adapter per Windows 10 [Bundle]"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ,
                                        "Wireless"^^xsd:string ;
@@ -1131,8 +1143,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0798MYJ26
 :B0798MYJ26 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Rivbox ;
-            <http://purl.org/goodrelations/v1#name> "Bluetooth Headphones, Riwbox XBT-80 Folding Stereo Wireless Bluetooth Headphones Over Ear with Microphone and Volume Control, Wireless and Wired Headset for PC/Cell Phones/TV/ipad (White Gold)"^^xsd:string ;
+            gr:hasBrand :Rivbox ;
+            gr:name "Bluetooth Headphones, Riwbox XBT-80 Folding Stereo Wireless Bluetooth Headphones Over Ear with Microphone and Volume Control, Wireless and Wired Headset for PC/Cell Phones/TV/ipad (White Gold)"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "31.85"^^xsd:double .
@@ -1141,8 +1153,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B079Z3V9WT
 :B079Z3V9WT rdf:type owl:NamedIndividual ,
                      :Printer ;
-            <http://purl.org/goodrelations/v1#hasBrand> :HP ;
-            <http://purl.org/goodrelations/v1#name> "HP LaserJet Pro M28w Stampante Laser Multifunzione Monocromatica, Scanner e Fotocopiatrice, Wi-Fi, Wi-Fi Direct, App HP Smart, Tecnologia Risparmio Energetico, Design Moderno e Compatta, Bianco"^^xsd:string ;
+            gr:hasBrand :HP ;
+            gr:name "HP LaserJet Pro M28w Stampante Laser Multifunzione Monocromatica, Scanner e Fotocopiatrice, Wi-Fi, Wi-Fi Direct, App HP Smart, Tecnologia Risparmio Energetico, Design Moderno e Compatta, Bianco"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ,
                                        "Wifi"^^xsd:string ;
@@ -1156,8 +1168,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07BRLMY93
 :B07BRLMY93 rdf:type owl:NamedIndividual ,
                      :Mouse ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Magic Mouse 2 - Space Grey"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Magic Mouse 2 - Space Grey"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasPrice "98.0"^^xsd:double .
@@ -1166,8 +1178,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07FB4H6Z4
 :B07FB4H6Z4 rdf:type owl:NamedIndividual ,
                      :UsbDrive ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
-            <http://purl.org/goodrelations/v1#name> "Samsung Memorie Bar Plus USB Flash Drive, USB 3.1, Type-A, Velocità di Lettura Fino a 400 MB/s, 128 GB, Argento (MUF-128BE3)"^^xsd:string ;
+            gr:hasBrand :SAMSUNG ;
+            gr:name "Samsung Memorie Bar Plus USB Flash Drive, USB 3.1, Type-A, Velocità di Lettura Fino a 400 MB/s, 128 GB, Argento (MUF-128BE3)"^^xsd:string ;
             :hasColor "Silver"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
@@ -1178,8 +1190,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B07GS6ZB7T rdf:type owl:NamedIndividual ,
                      :Mouse ,
                      :VideogameAccessory ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
-            <http://purl.org/goodrelations/v1#name> "Logitech G502 HERO Mouse Gaming Prestazioni Elevate, Sensore HERO 25K, 25.600 DPI, RGB, Pesi Regolabili, 11 Pulsanti Programmabili, Memoria Integrata, PC/Mac/Laptop, Nero"^^xsd:string ;
+            gr:hasBrand :Logitech ;
+            gr:name "Logitech G502 HERO Mouse Gaming Prestazioni Elevate, Sensore HERO 25K, 25.600 DPI, RGB, Pesi Regolabili, 11 Pulsanti Programmabili, Memoria Integrata, PC/Mac/Laptop, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
             :hasPrice "57.99"^^xsd:double .
@@ -1189,16 +1201,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B07HN66ZF2 rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :VideogameConsole ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
-            <http://purl.org/goodrelations/v1#name> "PlayStation 4 Pro Gamma, 1TB"^^xsd:string ;
+            gr:hasBrand :Sony ;
+            gr:name "PlayStation 4 Pro Gamma, 1TB"^^xsd:string ;
             :hasPrice "488.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07HN8WJN7
 :B07HN8WJN7 rdf:type owl:NamedIndividual ,
                      :Desktop ;
-            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
-            <http://purl.org/goodrelations/v1#name> "ASUS PB40 Mini Desktop Pc - Intel Celeron N4000, 4GB ram DDR4, eMMC 64GB, Lan 10/100/1000, 1xUsb Type C, 1xUSB 3.1, Display Port, HDMI, Porta COM"^^xsd:string ;
+            gr:hasBrand :ASUS ;
+            gr:name "ASUS PB40 Mini Desktop Pc - Intel Celeron N4000, 4GB ram DDR4, eMMC 64GB, Lan 10/100/1000, 1xUsb Type C, 1xUSB 3.1, Display Port, HDMI, Porta COM"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "289.0"^^xsd:double ;
@@ -1211,16 +1223,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B07KYTRMGZ rdf:type owl:NamedIndividual ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Microsoft ;
-            <http://purl.org/goodrelations/v1#name> "kwmobile Alimentatore di ricambio Compatibile con Xbox One - Cavo di alimentazione elettrica CC CA sostituzione per Microsoft Xbox One Console spina EU adattatore"^^xsd:string ;
+            gr:hasBrand :Microsoft ;
+            gr:name "kwmobile Alimentatore di ricambio Compatibile con Xbox One - Cavo di alimentazione elettrica CC CA sostituzione per Microsoft Xbox One Console spina EU adattatore"^^xsd:string ;
             :hasPrice "31.99"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07NDYYNNZ
 :B07NDYYNNZ rdf:type owl:NamedIndividual ,
                      :ExternalHardDrive ;
-            <http://purl.org/goodrelations/v1#hasBrand> :TOSHIBA ;
-            <http://purl.org/goodrelations/v1#name> "TOSHIBA HDTB420EK3AA, Canvio Basics, Disco rigido Esterno Portatile, USB 3.0, Nero, 2 TB"^^xsd:string ;
+            gr:hasBrand :TOSHIBA ;
+            gr:name "TOSHIBA HDTB420EK3AA, Canvio Basics, Disco rigido Esterno Portatile, USB 3.0, Nero, 2 TB"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "2000.0"^^xsd:float ;
@@ -1230,8 +1242,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07NY3C9CD
 :B07NY3C9CD rdf:type owl:NamedIndividual ,
                      :ExternalHardDrive ;
-            <http://purl.org/goodrelations/v1#hasBrand> :MAXTOR ;
-            <http://purl.org/goodrelations/v1#name> "Maxtor STSHX-M101TCBM HDD Esterno, USB 3.0, 1TB, Nero"^^xsd:string ;
+            gr:hasBrand :MAXTOR ;
+            gr:name "Maxtor STSHX-M101TCBM HDD Esterno, USB 3.0, 1TB, Nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasHardwareInterface "USB 3.0"^^xsd:string ;
             :hasMemoryCapacity "1000.0"^^xsd:float ;
@@ -1241,8 +1253,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07PPC15G6
 :B07PPC15G6 rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
-            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy Tab A 10.1, Tablet, Display 10.1\" WUXGA, 32 GB Espandibili, RAM 2 GB, Batteria 6150 mAh, Wi-Fi, Android 9 Pie, Black [Versione Italiana]"^^xsd:string ;
+            gr:hasBrand :SAMSUNG ;
+            gr:name "Samsung Galaxy Tab A 10.1, Tablet, Display 10.1\" WUXGA, 32 GB Espandibili, RAM 2 GB, Batteria 6150 mAh, Wi-Fi, Android 9 Pie, Black [Versione Italiana]"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
             :hasPrice "189.0"^^xsd:double ;
@@ -1253,8 +1265,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07PYMK77Y
 :B07PYMK77Y rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Apple AirPods con custodia di ricarica tramite cavo"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Apple AirPods con custodia di ricarica tramite cavo"^^xsd:string ;
             :hasColor "White"^^xsd:string ;
             :hasConnectivityTechnology "NFC"^^xsd:string ;
             :hasPrice "111.74"^^xsd:double .
@@ -1263,8 +1275,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B07SB827NV
 :B07SB827NV rdf:type owl:NamedIndividual ,
                      :Printer ;
-            <http://purl.org/goodrelations/v1#hasBrand> :HP ;
-            <http://purl.org/goodrelations/v1#name> "HP LaserJet 135a 4ZB82A, Stampante Laser Bianco e Nero Multifunzione, Stampa, Copia, Scansione, Fotocopiatrice, Formato A4, No Wi-Fi, USB, Fronte e Retro Manuale, fino a 20 ppm, Bianca"^^xsd:string ;
+            gr:hasBrand :HP ;
+            gr:name "HP LaserJet 135a 4ZB82A, Stampante Laser Bianco e Nero Multifunzione, Stampa, Copia, Scansione, Fotocopiatrice, Formato A4, No Wi-Fi, USB, Fronte e Retro Manuale, fino a 20 ppm, Bianca"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ,
                       "White"^^xsd:string ;
             :hasConnectivityTechnology "USB"^^xsd:string ;
@@ -1279,8 +1291,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B07VKLNNVL rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :VideogameConsole ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
-            <http://purl.org/goodrelations/v1#name> "PS4 Pro Gamma 1TB + Fortnite Vch - Special - PlayStation 4"^^xsd:string ;
+            gr:hasBrand :Sony ;
+            gr:name "PS4 Pro Gamma 1TB + Fortnite Vch - Special - PlayStation 4"^^xsd:string ;
             :hasPrice "473.9"^^xsd:double .
 
 
@@ -1288,16 +1300,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B07WPD3DTC rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Rockstar_Games ;
-            <http://purl.org/goodrelations/v1#name> "Grand Theft Auto V: Premium Edition (PS4)"^^xsd:string ;
+            gr:hasBrand :Rockstar_Games ;
+            gr:name "Grand Theft Auto V: Premium Edition (PS4)"^^xsd:string ;
             :hasPrice "25.6"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0828S1TPM
 :B0828S1TPM rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            <http://purl.org/goodrelations/v1#hasBrand> :OneOdio ;
-            <http://purl.org/goodrelations/v1#name> "OneOdio Cuffie Bluetooth Wireless Over Ear Hi-Fi Stereo Audio, Cuffie con Microfono CVC 8.0 80 Hrs Playtime, Cuffie Pieghevoli con Altoparlante al Neodimio da 50 mm per PC, Cellulare, TV, iPad"^^xsd:string ;
+            gr:hasBrand :OneOdio ;
+            gr:name "OneOdio Cuffie Bluetooth Wireless Over Ear Hi-Fi Stereo Audio, Cuffie con Microfono CVC 8.0 80 Hrs Playtime, Cuffie Pieghevoli con Altoparlante al Neodimio da 50 mm per PC, Cellulare, TV, iPad"^^xsd:string ;
             :hasColor "Red"^^xsd:string ;
             :hasConnectivityTechnology "Bluetooth"^^xsd:string ,
                                        "Wired"^^xsd:string ;
@@ -1307,8 +1319,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B0863TXGM3
 :B0863TXGM3 rdf:type owl:NamedIndividual ,
                      :Headphones ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Sony ;
-            <http://purl.org/goodrelations/v1#name> "Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead Headphones with Mic for Phone-Call and Alexa Voice Control, Black"^^xsd:string ;
+            gr:hasBrand :Sony ;
+            gr:name "Sony WH-1000XM4 Wireless Industry Leading Noise Canceling Overhead Headphones with Mic for Phone-Call and Alexa Voice Control, Black"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "348.0"^^xsd:double .
@@ -1317,9 +1329,9 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B089ZVZL2R
 :B089ZVZL2R rdf:type owl:NamedIndividual ,
                      :Desktop ;
-            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
+            gr:hasBrand :ASUS ;
             :hasGraphicBrand :NVIDIA ;
-            <http://purl.org/goodrelations/v1#name> "Asus S340MF-59400F005D – Computer desktop da 15 L, Intel Core i5-9400F, 8 GB RAM, 256 GB SSD, GeForce GT710, Endless OS, in inglese, nero"^^xsd:string ;
+            gr:name "Asus S340MF-59400F005D – Computer desktop da 15 L, Intel Core i5-9400F, 8 GB RAM, 256 GB SSD, GeForce GT710, Endless OS, in inglese, nero"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
@@ -1332,8 +1344,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B08B9Z6573 rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Electronic_Arts ;
-            <http://purl.org/goodrelations/v1#name> "FIFA 21 PlayStation 4 [Edizione Italiana]"^^xsd:string ;
+            gr:hasBrand :Electronic_Arts ;
+            gr:name "FIFA 21 PlayStation 4 [Edizione Italiana]"^^xsd:string ;
             :hasPrice "39.99"^^xsd:double .
 
 
@@ -1341,8 +1353,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B08BPTKHJH rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
-            <http://purl.org/goodrelations/v1#name> "Crash Bandicoot 4 - It's About Time - PlayStation 4"^^xsd:string ;
+            gr:hasBrand :Activision_Blizzard ;
+            gr:name "Crash Bandicoot 4 - It's About Time - PlayStation 4"^^xsd:string ;
             :hasPrice "59.99"^^xsd:double .
 
 
@@ -1351,8 +1363,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                      :PlayStation3 ,
                      :VideogameAccessory ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Logitech ;
-            <http://purl.org/goodrelations/v1#name> "Controller wireless Xbox One e PS3 joystick supporto PC per Windows 7/8/10 gamepad xbox series x, Doppial-vibrazione, design più ergonomico"^^xsd:string ;
+            gr:hasBrand :Logitech ;
+            gr:name "Controller wireless Xbox One e PS3 joystick supporto PC per Windows 7/8/10 gamepad xbox series x, Doppial-vibrazione, design più ergonomico"^^xsd:string ;
             :hasColor "Light Blue"^^xsd:string ;
             :hasConnectivityTechnology "Wireless"^^xsd:string ;
             :hasPrice "39.5"^^xsd:double .
@@ -1361,8 +1373,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08DRVHP65
 :B08DRVHP65 rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
-            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy Tab A7 Tablet, Display 10.4\" TFT, 32GB Espandibili fino a 1TB, RAM 3GB, Batteria 7.040 mAh, WiFi, Android 10, Fotocamera posteriore 8 MP, Dark Gray [Versione Italiana]"^^xsd:string ;
+            gr:hasBrand :SAMSUNG ;
+            gr:name "Samsung Galaxy Tab A7 Tablet, Display 10.4\" TFT, 32GB Espandibili fino a 1TB, RAM 3GB, Batteria 7.040 mAh, WiFi, Android 10, Fotocamera posteriore 8 MP, Dark Gray [Versione Italiana]"^^xsd:string ;
             :hasColor "Gray"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
@@ -1373,8 +1385,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08J6M5YVK
 :B08J6M5YVK rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Novità Apple iPad (10,2\", Wi-Fi, 32GB) - Oro"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Novità Apple iPad (10,2\", Wi-Fi, 32GB) - Oro"^^xsd:string ;
             :hasColor "Gold"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "32.0"^^xsd:float ;
@@ -1386,8 +1398,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08J6S27LG
 :B08J6S27LG rdf:type owl:NamedIndividual ,
                      :Tablet ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Novità Apple iPad Air (10,9\", Wi-Fi, 64GB) - Verde"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Novità Apple iPad Air (10,9\", Wi-Fi, 64GB) - Verde"^^xsd:string ;
             :hasColor "Green"^^xsd:string ;
             :hasConnectivityTechnology "Wifi"^^xsd:string ;
             :hasMemoryCapacity "64.0"^^xsd:float ;
@@ -1399,8 +1411,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B08JMH4QRT rdf:type owl:NamedIndividual ,
                      :Videogame ,
                      :XboxOne ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
-            <http://purl.org/goodrelations/v1#name> "Activision Blizzard Call of Duty: Black Ops Cold War - Xbox One"^^xsd:string ;
+            gr:hasBrand :Activision_Blizzard ;
+            gr:name "Activision Blizzard Call of Duty: Black Ops Cold War - Xbox One"^^xsd:string ;
             :hasPrice "69.83"^^xsd:double .
 
 
@@ -1408,16 +1420,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :B08JMHTG7X rdf:type owl:NamedIndividual ,
                      :PlayStation4 ,
                      :Videogame ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Activision_Blizzard ;
-            <http://purl.org/goodrelations/v1#name> "Activision Blizzard Call of Duty: Black Ops Cold War - Playstation 4"^^xsd:string ;
+            gr:hasBrand :Activision_Blizzard ;
+            gr:name "Activision Blizzard Call of Duty: Black Ops Cold War - Playstation 4"^^xsd:string ;
             :hasPrice "62.0"^^xsd:double .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08KS5PC5S
 :B08KS5PC5S rdf:type owl:NamedIndividual ,
                      :Cellphone ;
-            <http://purl.org/goodrelations/v1#hasBrand> :SAMSUNG ;
-            <http://purl.org/goodrelations/v1#name> "Samsung Galaxy M11, Smartphone, Display 6.4\" HD+ TFT, 3 Fotocamere, 32GB Espandibili, RAM 3GB, Batteria 5000 mAh, 4G, Dual Sim, Android 10, 2020 [Versione Italiana], Black"^^xsd:string ;
+            gr:hasBrand :SAMSUNG ;
+            gr:name "Samsung Galaxy M11, Smartphone, Display 6.4\" HD+ TFT, 3 Fotocamere, 32GB Espandibili, RAM 3GB, Batteria 5000 mAh, 4G, Dual Sim, Android 10, 2020 [Versione Italiana], Black"^^xsd:string ;
             :hasColor "Black"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "159.9"^^xsd:double ;
@@ -1427,8 +1439,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08L5PKKRJ
 :B08L5PKKRJ rdf:type owl:NamedIndividual ,
                      :Cellphone ;
-            <http://purl.org/goodrelations/v1#hasBrand> :Apple ;
-            <http://purl.org/goodrelations/v1#name> "Novità Apple iPhone 12 Pro Max (128GB) - Oro"^^xsd:string ;
+            gr:hasBrand :Apple ;
+            gr:name "Novità Apple iPhone 12 Pro Max (128GB) - Oro"^^xsd:string ;
             :hasColor "Gold"^^xsd:string ;
             :hasMemoryCapacity "128.0"^^xsd:float ;
             :hasPrice "1149.0"^^xsd:double .
@@ -1437,8 +1449,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08LH9HFG5
 :B08LH9HFG5 rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
-            <http://purl.org/goodrelations/v1#name> "Notebook Pc Asus portatile Intel Core i3-1005G1 3.4 Ghz 10 Gen. display 15,6\" Hd 1920x1080,Ram 4Gb Ddr4,Ssd Nvme 256 Gb M2,Hdmi,USB 3.0,Wifi,Bluetooth,Webcam,Windows 10 64 bit,Open Office,Antivirus"^^xsd:string ;
+            gr:hasBrand :ASUS ;
+            gr:name "Notebook Pc Asus portatile Intel Core i3-1005G1 3.4 Ghz 10 Gen. display 15,6\" Hd 1920x1080,Ram 4Gb Ddr4,Ssd Nvme 256 Gb M2,Hdmi,USB 3.0,Wifi,Bluetooth,Webcam,Windows 10 64 bit,Open Office,Antivirus"^^xsd:string ;
             :hasCpuModel "Intel Core i3"^^xsd:string ;
             :hasMemoryCapacity "4.0"^^xsd:float ;
             :hasPrice "649.99"^^xsd:double ;
@@ -1449,9 +1461,9 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B08V5LG7YT
 :B08V5LG7YT rdf:type owl:NamedIndividual ,
                      :Laptop ;
-            <http://purl.org/goodrelations/v1#hasBrand> :ASUS ;
+            gr:hasBrand :ASUS ;
             :hasGraphicBrand :NVIDIA ;
-            <http://purl.org/goodrelations/v1#name> "ASUS Laptop A515JF-EJ051T, Notebook con Monitor 15,6 FHD Anti-Glare, Intel Core i5-1035G1, RAM 8GB DDR4, grafica NVIDIA GeForce MX130 con 2GB GDDR5, 256GB SSD PCIE, Windows 10 Home, Argento"^^xsd:string ;
+            gr:name "ASUS Laptop A515JF-EJ051T, Notebook con Monitor 15,6 FHD Anti-Glare, Intel Core i5-1035G1, RAM 8GB DDR4, grafica NVIDIA GeForce MX130 con 2GB GDDR5, 256GB SSD PCIE, Windows 10 Home, Argento"^^xsd:string ;
             :hasCpuModel "Intel Core i5"^^xsd:string ;
             :hasMemoryCapacity "8.0"^^xsd:float ;
             :hasPrice "699.0"^^xsd:double ;
@@ -1466,10 +1478,6 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                       <http://www.w3.org/2006/vcard/ns#locality> "Oxford"^^xsd:string ;
                       <http://www.w3.org/2006/vcard/ns#postal-code> "OX1 1AA"^^xsd:string ;
                       <http://www.w3.org/2006/vcard/ns#street-address> "Banbury Road, 2"^^xsd:string .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Bluetooth
-:Bluetooth rdf:type owl:NamedIndividual .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#CalleDelTrejo_18_Madrid
@@ -1492,23 +1500,23 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cristian_De_Niro
 :Cristian_De_Niro rdf:type owl:NamedIndividual ,
-                           <http://xmlns.com/foaf/0.1/Person> ;
-                  <http://xmlns.com/foaf/0.1/account> :Cristian_the_gamer ;
-                  <http://xmlns.com/foaf/0.1/birthday> "1967-11-10T00:00:00Z"^^xsd:dateTime ;
-                  <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
-                  <http://xmlns.com/foaf/0.1/name> "Cristian De Niro"^^xsd:string .
+                           foaf:Person ;
+                  foaf:account :Cristian_the_gamer ;
+                  foaf:birthday "1967-11-10T00:00:00Z"^^xsd:dateTime ;
+                  foaf:gender "male"^^xsd:string ;
+                  foaf:name "Cristian De Niro"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Cristian_the_gamer
 :Cristian_the_gamer rdf:type owl:NamedIndividual ,
-                             <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-                    <http://xmlns.com/foaf/0.1/accountName> "Cristian_the_gamer"^^xsd:string .
+                             foaf:OnlineEcommerceAccount ;
+                    foaf:accountName "Cristian_the_gamer"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Electronic_Arts
 :Electronic_Arts rdf:type owl:NamedIndividual ,
-                          <http://purl.org/goodrelations/v1#Brand> ;
-                 <http://purl.org/goodrelations/v1#name> "Electronic Arts"^^xsd:string .
+                          gr:Brand ;
+                 gr:name "Electronic Arts"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#France
@@ -1519,8 +1527,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#HP
 :HP rdf:type owl:NamedIndividual ,
-             <http://purl.org/goodrelations/v1#Brand> ;
-    <http://purl.org/goodrelations/v1#name> "HP"^^xsd:string .
+             gr:Brand ;
+    gr:name "HP"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Italy
@@ -1531,47 +1539,47 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Jennifer_Lawrence
 :Jennifer_Lawrence rdf:type owl:NamedIndividual ,
-                            <http://xmlns.com/foaf/0.1/Person> ;
-                   <http://xmlns.com/foaf/0.1/account> :LawrenceJennifer ;
-                   <http://xmlns.com/foaf/0.1/birthday> "1977-10-10T00:00:00Z"^^xsd:dateTime ;
-                   <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
-                   <http://xmlns.com/foaf/0.1/name> "Jennifer Lawrence"^^xsd:string .
+                            foaf:Person ;
+                   foaf:account :LawrenceJennifer ;
+                   foaf:birthday "1977-10-10T00:00:00Z"^^xsd:dateTime ;
+                   foaf:gender "female"^^xsd:string ;
+                   foaf:name "Jennifer Lawrence"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#John_Snow
 :John_Snow rdf:type owl:NamedIndividual ,
-                    <http://xmlns.com/foaf/0.1/Person> ;
-           <http://xmlns.com/foaf/0.1/account> :john_snow ;
-           <http://xmlns.com/foaf/0.1/birthday> "1997-10-10T00:00:00Z"^^xsd:dateTime ;
-           <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
-           <http://xmlns.com/foaf/0.1/name> "John Snow"^^xsd:string .
+                    foaf:Person ;
+           foaf:account :john_snow ;
+           foaf:birthday "1997-10-10T00:00:00Z"^^xsd:dateTime ;
+           foaf:gender "male"^^xsd:string ;
+           foaf:name "John Snow"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#JulieJuliette
 :JulieJuliette rdf:type owl:NamedIndividual ,
-                        <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-               <http://xmlns.com/foaf/0.1/accountName> "JulieJuliette"^^xsd:string .
+                        foaf:OnlineEcommerceAccount ;
+               foaf:accountName "JulieJuliette"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Julie_Lacroix
 :Julie_Lacroix rdf:type owl:NamedIndividual ,
-                        <http://xmlns.com/foaf/0.1/Person> ;
-               <http://xmlns.com/foaf/0.1/account> :JulieJuliette ;
-               <http://xmlns.com/foaf/0.1/birthday> "1999-10-10T00:00:00Z"^^xsd:dateTime ;
-               <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
-               <http://xmlns.com/foaf/0.1/name> "Julie Lacroix"^^xsd:string .
+                        foaf:Person ;
+               foaf:account :JulieJuliette ;
+               foaf:birthday "1999-10-10T00:00:00Z"^^xsd:dateTime ;
+               foaf:gender "female"^^xsd:string ;
+               foaf:name "Julie Lacroix"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#LawrenceJennifer
 :LawrenceJennifer rdf:type owl:NamedIndividual ,
-                           <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-                  <http://xmlns.com/foaf/0.1/accountName> "LawrenceJennifer"^^xsd:string .
+                           foaf:OnlineEcommerceAccount ;
+                  foaf:accountName "LawrenceJennifer"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Logitech
 :Logitech rdf:type owl:NamedIndividual ,
-                   <http://purl.org/goodrelations/v1#Brand> ;
-          <http://purl.org/goodrelations/v1#name> "Logitech"^^xsd:string .
+                   gr:Brand ;
+          gr:name "Logitech"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#London
@@ -1582,8 +1590,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#MAXTOR
 :MAXTOR rdf:type owl:NamedIndividual ,
-                 <http://purl.org/goodrelations/v1#Brand> ;
-        <http://purl.org/goodrelations/v1#name> "Maxtor"^^xsd:string .
+                 gr:Brand ;
+        gr:name "Maxtor"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Madrid
@@ -1594,26 +1602,26 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Mario_Rodriguez
 :Mario_Rodriguez rdf:type owl:NamedIndividual ,
-                          <http://xmlns.com/foaf/0.1/Person> ;
-                 <http://xmlns.com/foaf/0.1/account> :therealRodriguez ;
-                 <http://xmlns.com/foaf/0.1/birthday> "1990-09-10T00:00:00Z"^^xsd:dateTime ;
-                 <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
-                 <http://xmlns.com/foaf/0.1/name> "Mario Rodriguez"^^xsd:string .
+                          foaf:Person ;
+                 foaf:account :therealRodriguez ;
+                 foaf:birthday "1990-09-10T00:00:00Z"^^xsd:dateTime ;
+                 foaf:gender "male"^^xsd:string ;
+                 foaf:name "Mario Rodriguez"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Mario_Rossi
 :Mario_Rossi rdf:type owl:NamedIndividual ,
-                      <http://xmlns.com/foaf/0.1/Person> ;
-             <http://xmlns.com/foaf/0.1/account> :mario_red_10 ;
-             <http://xmlns.com/foaf/0.1/birthday> "2002-10-10T00:00:00Z"^^xsd:dateTime ;
-             <http://xmlns.com/foaf/0.1/gender> "male"^^xsd:string ;
-             <http://xmlns.com/foaf/0.1/name> "Mario Rossi"^^xsd:string .
+                      foaf:Person ;
+             foaf:account :mario_red_10 ;
+             foaf:birthday "2002-10-10T00:00:00Z"^^xsd:dateTime ;
+             foaf:gender "male"^^xsd:string ;
+             foaf:name "Mario Rossi"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Microsoft
 :Microsoft rdf:type owl:NamedIndividual ,
-                    <http://purl.org/goodrelations/v1#Brand> ;
-           <http://purl.org/goodrelations/v1#name> "Microsoft"^^xsd:string .
+                    gr:Brand ;
+           gr:name "Microsoft"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Milan
@@ -1622,24 +1630,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
        :locatedInCountry :Italy .
 
 
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#NFC
-:NFC rdf:type owl:NamedIndividual .
-
-
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#NVIDIA
 :NVIDIA rdf:type owl:NamedIndividual ,
-                 <http://purl.org/goodrelations/v1#Brand> ;
-        <http://purl.org/goodrelations/v1#name> "Nvidia"^^xsd:string .
-
-
-###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#OS_X
-:OS_X rdf:type owl:NamedIndividual .
+                 gr:Brand ;
+        gr:name "Nvidia"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#OneOdio
 :OneOdio rdf:type owl:NamedIndividual ,
-                  <http://purl.org/goodrelations/v1#Brand> ;
-         <http://purl.org/goodrelations/v1#name> "One Odio"^^xsd:string .
+                  gr:Brand ;
+         gr:name "One Odio"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Oxford
@@ -1656,29 +1656,29 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#PlayStation
 :PlayStation rdf:type owl:NamedIndividual ,
-                      <http://purl.org/goodrelations/v1#Brand> ;
-             <http://purl.org/goodrelations/v1#name> "PlayStation"^^xsd:string .
+                      gr:Brand ;
+             gr:name "PlayStation"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rivbox
 :Rivbox rdf:type owl:NamedIndividual ,
-                 <http://purl.org/goodrelations/v1#Brand> ;
-        <http://purl.org/goodrelations/v1#name> "Rivbox"^^xsd:string .
+                 gr:Brand ;
+        gr:name "Rivbox"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Roberta_Sereni
 :Roberta_Sereni rdf:type owl:NamedIndividual ,
-                         <http://xmlns.com/foaf/0.1/Person> ;
-                <http://xmlns.com/foaf/0.1/account> :SereniRoberta97 ;
-                <http://xmlns.com/foaf/0.1/birthday> "1997-03-12T00:00:00Z"^^xsd:dateTime ;
-                <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
-                <http://xmlns.com/foaf/0.1/name> "Roberta Sereni"^^xsd:string .
+                         foaf:Person ;
+                foaf:account :SereniRoberta97 ;
+                foaf:birthday "1997-03-12T00:00:00Z"^^xsd:dateTime ;
+                foaf:gender "female"^^xsd:string ;
+                foaf:name "Roberta Sereni"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rockstar_Games
 :Rockstar_Games rdf:type owl:NamedIndividual ,
-                         <http://purl.org/goodrelations/v1#Brand> ;
-                <http://purl.org/goodrelations/v1#name> "Rockstar Games"^^xsd:string .
+                         gr:Brand ;
+                gr:name "Rockstar Games"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rome
@@ -1689,11 +1689,11 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Rose_Cohen
 :Rose_Cohen rdf:type owl:NamedIndividual ,
-                     <http://xmlns.com/foaf/0.1/Person> ;
-            <http://xmlns.com/foaf/0.1/account> :lavieenrose ;
-            <http://xmlns.com/foaf/0.1/birthday> "1991-02-03T00:00:00Z"^^xsd:dateTime ;
-            <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
-            <http://xmlns.com/foaf/0.1/name> "Rose Cohen"^^xsd:string .
+                     foaf:Person ;
+            foaf:account :lavieenrose ;
+            foaf:birthday "1991-02-03T00:00:00Z"^^xsd:dateTime ;
+            foaf:gender "female"^^xsd:string ;
+            foaf:name "Rose Cohen"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#RueDeLaPaix_10_Paris
@@ -1707,35 +1707,35 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SAMSUNG
 :SAMSUNG rdf:type owl:NamedIndividual ,
-                  <http://purl.org/goodrelations/v1#Brand> ;
-         <http://purl.org/goodrelations/v1#name> "Samsung"^^xsd:string .
+                  gr:Brand ;
+         gr:name "Samsung"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SanDisk
 :SanDisk rdf:type owl:NamedIndividual ,
-                  <http://purl.org/goodrelations/v1#Brand> ;
-         <http://purl.org/goodrelations/v1#name> "SanDisk"^^xsd:string .
+                  gr:Brand ;
+         gr:name "SanDisk"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Sara_Bianchi
 :Sara_Bianchi rdf:type owl:NamedIndividual ,
-                       <http://xmlns.com/foaf/0.1/Person> ;
-              <http://xmlns.com/foaf/0.1/account> :bianchis_89 ;
-              <http://xmlns.com/foaf/0.1/birthday> "1989-12-10T00:00:00Z"^^xsd:dateTime ;
-              <http://xmlns.com/foaf/0.1/gender> "female"^^xsd:string ;
-              <http://xmlns.com/foaf/0.1/name> "Sara Bianchi"^^xsd:string .
+                       foaf:Person ;
+              foaf:account :bianchis_89 ;
+              foaf:birthday "1989-12-10T00:00:00Z"^^xsd:dateTime ;
+              foaf:gender "female"^^xsd:string ;
+              foaf:name "Sara Bianchi"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#SereniRoberta97
 :SereniRoberta97 rdf:type owl:NamedIndividual ,
-                          <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-                 <http://xmlns.com/foaf/0.1/accountName> "SereniRoberta97"^^xsd:string .
+                          foaf:OnlineEcommerceAccount ;
+                 foaf:accountName "SereniRoberta97"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Sony
 :Sony rdf:type owl:NamedIndividual ,
-               <http://purl.org/goodrelations/v1#Brand> ;
-      <http://purl.org/goodrelations/v1#name> "Sony"^^xsd:string .
+               gr:Brand ;
+      gr:name "Sony"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#Spain
@@ -1746,8 +1746,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#TOSHIBA
 :TOSHIBA rdf:type owl:NamedIndividual ,
-                  <http://purl.org/goodrelations/v1#Brand> ;
-         <http://purl.org/goodrelations/v1#name> "Toshiba"^^xsd:string .
+                  gr:Brand ;
+         gr:name "Toshiba"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#UK
@@ -1785,38 +1785,38 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#alessioNeri87
 :alessioNeri87 rdf:type owl:NamedIndividual ,
-                        <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-               <http://xmlns.com/foaf/0.1/accountName> "alessioNeri87"^^xsd:string .
+                        foaf:OnlineEcommerceAccount ;
+               foaf:accountName "alessioNeri87"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#bianchis_89
 :bianchis_89 rdf:type owl:NamedIndividual ,
-                      <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-             <http://xmlns.com/foaf/0.1/accountName> "bianchis_89"^^xsd:string .
+                      foaf:OnlineEcommerceAccount ;
+             foaf:accountName "bianchis_89"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#john_snow
 :john_snow rdf:type owl:NamedIndividual ,
-                    <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-           <http://xmlns.com/foaf/0.1/accountName> "john_snow"^^xsd:string .
+                    foaf:OnlineEcommerceAccount ;
+           foaf:accountName "john_snow"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#lavieenrose
 :lavieenrose rdf:type owl:NamedIndividual ,
-                      <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-             <http://xmlns.com/foaf/0.1/accountName> "lavieenrose"^^xsd:string .
+                      foaf:OnlineEcommerceAccount ;
+             foaf:accountName "lavieenrose"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#mario_red_10
 :mario_red_10 rdf:type owl:NamedIndividual ,
-                       <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-              <http://xmlns.com/foaf/0.1/accountName> "mario_red_10"^^xsd:string .
+                       foaf:OnlineEcommerceAccount ;
+              foaf:accountName "mario_red_10"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#therealRodriguez
 :therealRodriguez rdf:type owl:NamedIndividual ,
-                           <http://xmlns.com/foaf/0.1/OnlineEcommerceAccount> ;
-                  <http://xmlns.com/foaf/0.1/accountName> "therealRodriguez"^^xsd:string .
+                           foaf:OnlineEcommerceAccount ;
+                  foaf:accountName "therealRodriguez"^^xsd:string .
 
 
 ###  http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#B_Cristian_the_gamer_2021-02-09T00:00:00
@@ -2113,15 +2113,187 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                                                                                       :actionDatetime "2021-03-27T12:50:00"^^xsd:dateTime .
 
 
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
-  <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+  <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
 ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.1360847098059"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "31.447160943472465"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "50.61054522854144"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "289.868143668448"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "169.65840389029682"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "136.06535232672"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
 
 [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
 [ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 hasColor \"no color\"^^string"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "165.66827085491883"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "16.869873007270122"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
@@ -2134,16 +2306,16 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
  ] .
 
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+[ <http://ainf.aau.at/ontodebug#axiom> "name some string SubClassOf Person"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
 [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "232.44551260616157"^^xsd:double ;
@@ -2151,13 +2323,25 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
  ] .
 
+[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "33.06132808359797"^^xsd:double ;
+   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "140.9699089572571"^^xsd:double ;
+   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+ ] .
+
 [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "165.66827085491883"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "16.869873007270122"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
 
 [ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "131.22150578217745"^^xsd:double ;
@@ -2165,6 +2349,10 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
  ] .
 
+[ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
 [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
  ] .
@@ -2173,56 +2361,12 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "169.65840389029682"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "136.06535232672"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "33.06132808359797"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "140.9699089572571"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "110.1360847098059"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "31.447160943472465"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "Cristian_the_gamer Type GamerCustomer"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ontologydesignpatterns.org/opla-sd#entityPositionX> "50.61054522854144"^^xsd:double ;
-   <http://ontologydesignpatterns.org/opla-sd#entityPositionY> "289.868143668448"^^xsd:double ;
-   rdfs:comment "This is an entity positioning annotation generated by CoModIDE (https://comodide.com/). Removing this annotation will break rendering the CoModIDE schema diagram view."@en
- ] .
-
 [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
 [ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
    <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
- ] .
-
-[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type Agent"^^xsd:string ;
-   <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
 [ <http://ainf.aau.at/ontodebug#axiom> "(hasBrand some Brand) and (name some string) and (hasColor some string) and (hasPrice some double) SubClassOf Product"^^xsd:string ;
@@ -2233,12 +2377,32 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    <http://ainf.aau.at/ontodebug#type> "false"^^xsd:boolean
  ] .
 
+[ <http://ainf.aau.at/ontodebug#axiom> "B00D2PX8C2 Type ProductOrService"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B07WPD3DTC Type Videogame"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
+[ <http://ainf.aau.at/ontodebug#axiom> "B08BPTKHJH Type PlayStation4"^^xsd:string ;
+   <http://ainf.aau.at/ontodebug#type> "true"^^xsd:boolean
+ ] .
+
 #################################################################
 #    General axioms
 #################################################################
 
-[ rdf:type owl:AllDifferent ;
-   owl:distinctMembers rdf:nil
+[ rdf:type owl:AllDisjointClasses ;
+   owl:members ( gr:Brand
+                 gr:ProductOrService
+                 :City
+                 :Country
+                 :UserAction
+                 <http://www.w3.org/2006/vcard/ns#Location>
+                 foaf:Agent
+                 foaf:OnlineAccount
+               )
  ] .
 
 
@@ -2487,6 +2651,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                         <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_lavieenrose_2021-02-12T18:23:00>
                         <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_mario_red_10_2021-01-10T18:23:00>
                         <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_mario_red_10_2021-01-10T18:30:00>
+                        <http://www.semanticweb.org/user/ontologies/2021/1/e-commerce#V_therealRodriguez_2021-03-27T12:50:00>
                       )
 ] .
 
@@ -2501,11 +2666,9 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 
 :v rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
-:product rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
-
-:buy rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
-
 :name rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:product rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :price rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
@@ -2516,6 +2679,8 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
 :elec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :s_elec rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+
+:buy rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
 :usr rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
 
@@ -2623,82 +2788,6 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
  ] .
 
 [ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
-   rdfs:comment "Mostly sold product, aggregating query using count"^^xsd:string ;
-   rdfs:label "8-Best seller"^^xsd:string ;
-   rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
-   <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :Product ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> :p
-                                                     ] ;
-                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument1> :p ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument2> :product
-                                                                ] ;
-                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> :ofProduct ;
-                                                                             <http://www.w3.org/2003/11/swrl#argument1> :buy ;
-                                                                             <http://www.w3.org/2003/11/swrl#argument2> :p
-                                                                           ] ;
-                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#classPredicate> :ProductBuying ;
-                                                                                        <http://www.w3.org/2003/11/swrl#argument1> :buy
-                                                                                      ] ;
-                                                                            rdf:rest rdf:nil
-                                                                          ]
-                                                               ]
-                                                    ]
-                                         ] ;
-   <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#select> ;
-                                                       <http://www.w3.org/2003/11/swrl#arguments> ( :product
-                                                                                                  )
-                                                     ] ;
-                                           rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#count> ;
-                                                                  <http://www.w3.org/2003/11/swrl#arguments> ( :buy
-                                                                                                             )
-                                                                ] ;
-                                                      rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                                 rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#columnNames> ;
-                                                                             <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
-                                                                                                                          rdf:first "Product"^^xsd:string ;
-                                                                                                                          rdf:rest [ rdf:type rdf:List ;
-                                                                                                                                     rdf:first "N_bought"^^xsd:string ;
-                                                                                                                                     rdf:rest rdf:nil
-                                                                                                                                   ]
-                                                                                                                        ]
-                                                                           ] ;
-                                                                 rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#orderByDescending> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#arguments> ( :buy
-                                                                                                                                   )
-                                                                                      ] ;
-                                                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#BuiltinAtom> ;
-                                                                                                   <http://www.w3.org/2003/11/swrl#builtin> <http://sqwrl.stanford.edu/ontologies/built-ins/3.4/sqwrl.owl#firstN> ;
-                                                                                                   <http://www.w3.org/2003/11/swrl#arguments> [ rdf:type rdf:List ;
-                                                                                                                                                rdf:first 1 ;
-                                                                                                                                                rdf:rest rdf:nil
-                                                                                                                                              ]
-                                                                                                 ] ;
-                                                                                       rdf:rest rdf:nil
-                                                                                     ]
-                                                                          ]
-                                                               ]
-                                                    ]
-                                         ]
- ] .
-
-[ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
    rdfs:comment "Detects products of brand Apple"^^xsd:string ;
    rdfs:label "3-Apple product"^^xsd:string ;
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
@@ -2709,13 +2798,13 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#hasBrand> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> gr:hasBrand ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :Apple
                                                                 ] ;
                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> gr:name ;
                                                                              <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                              <http://www.w3.org/2003/11/swrl#argument2> :name
                                                                            ] ;
@@ -2745,7 +2834,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> gr:name ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :product
                                                                 ] ;
@@ -2812,7 +2901,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> gr:name ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :product_name
                                                                 ] ;
@@ -2968,7 +3057,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                                                            ] ;
                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://purl.org/goodrelations/v1#name> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> gr:name ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument2> :product
                                                                                       ] ;
@@ -3031,7 +3120,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
  ] .
 
 [ <http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> "true"^^xsd:boolean ;
-   rdfs:comment "Can be a useful info for a customer that is searching for videogames."^^xsd:string ;
+   rdfs:comment "Can be a useful info for a customer that is searching for videogames. (dpaa:DataProp assertion)"^^xsd:string ;
    rdfs:label "10-All prices for Videogames"^^xsd:string ;
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
@@ -3073,24 +3162,24 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> foaf:Person ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:name ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :name
                                                                 ] ;
                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:account ;
                                                                              <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                              <http://www.w3.org/2003/11/swrl#argument2> :a
                                                                            ] ;
                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:birthday ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument2> :birthday
                                                                                       ] ;
@@ -3119,7 +3208,7 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/age> ;
+                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:age ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                        <http://www.w3.org/2003/11/swrl#argument2> :age
                                                      ] ;
@@ -3133,24 +3222,24 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> foaf:Person ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:name ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :name
                                                                 ] ;
                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:account ;
                                                                              <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                              <http://www.w3.org/2003/11/swrl#argument2> :a
                                                                            ] ;
                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:birthday ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument2> :birthday
                                                                                       ] ;
@@ -3194,24 +3283,24 @@ Notice that an ontology generally describes some ASPECTS of a domain of interest
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#classPredicate> <http://xmlns.com/foaf/0.1/Person> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> foaf:Person ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> :p
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                       rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/name> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:name ;
                                                                   <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                   <http://www.w3.org/2003/11/swrl#argument2> :name
                                                                 ] ;
                                                       rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                  rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/account> ;
+                                                                             <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:account ;
                                                                              <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                              <http://www.w3.org/2003/11/swrl#argument2> :a
                                                                            ] ;
                                                                  rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                                                             rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
-                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> <http://xmlns.com/foaf/0.1/birthday> ;
+                                                                                        <http://www.w3.org/2003/11/swrl#propertyPredicate> foaf:birthday ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument1> :p ;
                                                                                         <http://www.w3.org/2003/11/swrl#argument2> :birthday
                                                                                       ] ;
