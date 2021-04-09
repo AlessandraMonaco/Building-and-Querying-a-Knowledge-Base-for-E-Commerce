@@ -1,0 +1,1 @@
+abox:dpaa(?s, ?p, ?v) ^ Printer(?s) -> sqwrl:selectDistinct(?p)
