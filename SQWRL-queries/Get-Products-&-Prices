@@ -1,0 +1,1 @@
+Product(?p) ^ gr:name(?p, ?product_name) ^ hasPrice(?p, ?price) -> sqwrl:select(?product_name, ?price)
